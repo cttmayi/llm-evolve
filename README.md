@@ -2,11 +2,11 @@
 
 <div align="center">
 
-<img src="openevolve-logo.png" alt="OpenEvolve Logo" width="400">
+<img src="pictures/openevolve-logo.png" alt="OpenEvolve Logo" width="400">
 
-**🧬 The most advanced open-source evolutionary coding agent**
+**🧬 最先进的开源进化代码智能体**
 
-*Turn your LLMs into autonomous code optimizers that discover breakthrough algorithms*
+*将您的LLM转化为自主代码优化器，发现突破性算法*
 
 <p align="center">
   <a href="https://github.com/codelion/openevolve/stargazers"><img src="https://img.shields.io/github/stars/codelion/openevolve?style=social" alt="GitHub stars"></a>
@@ -15,86 +15,86 @@
   <a href="https://github.com/codelion/openevolve/blob/main/LICENSE"><img src="https://img.shields.io/github/license/codelion/openevolve" alt="License"></a>
 </p>
 
-[🚀 **Quick Start**](#-quick-start) • [📖 **Examples**](#-examples-gallery) • [💬 **Discussions**](https://github.com/codelion/openevolve/discussions)
+[🚀 **快速开始**](#-快速开始) • [📖 **示例**](#-示例展示) • [💬 **讨论**](https://github.com/codelion/openevolve/discussions)
 
-*From random search to state-of-the-art: Watch your code evolve in real-time*
+*从随机搜索到最先进水平：实时观看您的代码进化*
 
 </div>
 
 ---
 
-## ✨ Why OpenEvolve?
+## ✨ 为什么选择OpenEvolve？
 
 <table>
 <tr>
 <td width="33%">
 
-### 🎯 **Autonomous Discovery**
-LLMs don't just optimize—they **discover** entirely new algorithms. No human guidance needed.
+### 🎯 **自主发现**
+LLM不仅仅是优化——而是**发现**全新的算法。无需人工指导。
 
 </td>
 <td width="33%">
 
-### ⚡ **Proven Results** 
-**2-3x speedups** on real hardware. **State-of-the-art** circle packing. **Breakthrough** optimizations.
+### ⚡ **经过验证的结果**
+在实际硬件上实现**2-3倍加速**。圆填充问题达到**最先进水平**。**突破性**优化。
 
 </td>
 <td width="33%">
 
-### 🔬 **Research Grade**
-Full reproducibility, extensive evaluation pipelines, and scientific rigor built-in.
+### 🔬 **研究级品质**
+内置完全可重现性、广泛评估流程和科学严谨性。
 
 </td>
 </tr>
 </table>
 
-**OpenEvolve vs Manual Optimization:**
+**OpenEvolve vs 手动优化：**
 
-| Aspect | Manual Optimization | OpenEvolve |
+| 方面 | 手动优化 | OpenEvolve |
 |--------|-------------------|------------|
-| **Time to Solution** | Days to weeks | Hours |
-| **Exploration Breadth** | Limited by human creativity | Unlimited LLM creativity |
-| **Reproducibility** | Hard to replicate | Fully deterministic |
-| **Multi-objective** | Complex tradeoffs | Automatic Pareto optimization |
-| **Scaling** | Doesn't scale | Parallel evolution across islands |
+| **解决时间** | 数天到数周 | 数小时 |
+| **探索广度** | 受人类创造力限制 | 无限的LLM创造力 |
+| **可重现性** | 难以复制 | 完全确定 |
+| **多目标** | 复杂的权衡 | 自动帕累托优化 |
+| **扩展性** | 无法扩展 | 跨岛屿的并行进化 |
 
-## 🏆 Proven Achievements
+## 🏆 已验证的成就
 
 <div align="center">
 
-| 🎯 **Domain** | 📈 **Achievement** | 🔗 **Example** |
+| 🎯 **领域** | 📈 **成就** | 🔗 **示例** |
 |---------------|-------------------|----------------|
-| **GPU Optimization** | 2-3x speedup on Apple Silicon | [MLX Metal Kernels](examples/mlx_metal_kernel_opt/) |
-| **Mathematical** | State-of-the-art circle packing (n=26) | [Circle Packing](examples/circle_packing/) |
-| **Algorithm Design** | Adaptive sorting algorithms | [Rust Adaptive Sort](examples/rust_adaptive_sort/) |
-| **Scientific Computing** | Automated filter design | [Signal Processing](examples/signal_processing/) |
-| **Multi-Language** | Python, Rust, R, Metal shaders | [All Examples](examples/) |
+| **GPU优化** | Apple Silicon上2-3倍加速 | [MLX Metal内核](examples/mlx_metal_kernel_opt/) |
+| **数学问题** | 圆填充问题达到最先进水平（n=26） | [圆填充](examples/circle_packing/) |
+| **算法设计** | 自适应排序算法 | [Rust自适应排序](examples/rust_adaptive_sort/) |
+| **科学计算** | 自动化滤波器设计 | [信号处理](examples/signal_processing/) |
+| **多语言** | Python、Rust、R、Metal着色器 | [所有示例](examples/) |
 
 </div>
 
-## 🚀 Quick Start
+## 🚀 快速开始
 
-Get from zero to evolving code in **30 seconds**:
+**30秒内从零开始进化代码：**
 
 ```bash
-# Install OpenEvolve
+# 安装OpenEvolve
 pip install openevolve
 
-# Set your LLM API key (works with any OpenAI-compatible provider)
+# 设置LLM API密钥（支持任何OpenAI兼容的提供商）
 export OPENAI_API_KEY="your-api-key"
 
-# Run your first evolution!
+# 运行您的第一次进化！
 python -c "
 from openevolve import run_evolution
 result = run_evolution(
     'examples/function_minimization/initial_program.py',
     'examples/function_minimization/evaluator.py'
 )
-print(f'Best score: {result.best_score:.4f}')
+print(f'最佳分数: {result.best_score:.4f}')
 "
 ```
 
-**Want more control?** Use the full CLI:
+**需要更多控制？** 使用完整的CLI：
 
 ```bash
 python openevolve-run.py examples/function_minimization/initial_program.py \
@@ -103,37 +103,37 @@ python openevolve-run.py examples/function_minimization/initial_program.py \
   --iterations 1000
 ```
 
-**Prefer Docker?**
+**更喜欢Docker？**
 ```bash
 docker run --rm -v $(pwd):/app ghcr.io/codelion/openevolve:latest \
   examples/function_minimization/initial_program.py \
   examples/function_minimization/evaluator.py --iterations 100
 ```
 
-## 🎬 See It In Action
+## 🎬 实际应用展示
 
 <details>
-<summary><b>🔥 Circle Packing: From Random to State-of-the-Art</b></summary>
+<summary><b>🔥 圆填充：从随机到最先进水平</b></summary>
 
-**Watch OpenEvolve discover optimal circle packing in real-time:**
+**实时观看OpenEvolve发现最优圆填充：**
 
-| Generation 1 | Generation 190 | Generation 460 (Final) |
+| 第1代 | 第190代 | 第460代（最终） |
 |--------------|----------------|----------------------|
-| ![Initial](examples/circle_packing/circle_packing_1.png) | ![Progress](examples/circle_packing/circle_packing_190.png) | ![Final](examples/circle_packing/circle_packing_460.png) |
-| Random placement | Learning structure | **State-of-the-art result** |
+| ![初始](examples/circle_packing/circle_packing_1.png) | ![进展](examples/circle_packing/circle_packing_190.png) | ![最终](examples/circle_packing/circle_packing_460.png) |
+| 随机放置 | 学习结构 | **最先进水平结果** |
 
-**Result**: Matches published benchmarks for n=26 circle packing problem.
+**结果**：与已发表的n=26圆填充问题基准相匹配。
 
 </details>
 
 <details>
-<summary><b>⚡ GPU Kernel Evolution</b></summary>
+<summary><b>⚡ GPU内核进化</b></summary>
 
-**Before (Baseline)**:
+**进化前（基线）**：
 ```metal
-// Standard attention implementation
+// 标准注意力实现
 kernel void attention_baseline(/* ... */) {
-    // Generic matrix multiplication
+    // 通用矩阵乘法
     float sum = 0.0;
     for (int i = 0; i < seq_len; i++) {
         sum += query[tid] * key[i];
@@ -141,86 +141,86 @@ kernel void attention_baseline(/* ... */) {
 }
 ```
 
-**After Evolution (2.8x faster)**:
+**进化后（2.8倍加速）**：
 ```metal
-// OpenEvolve discovered optimization
+// OpenEvolve发现的优化
 kernel void attention_evolved(/* ... */) {
-    // Hardware-aware tiling + unified memory optimization
+    // 硬件感知分块 + 统一内存优化
     threadgroup float shared_mem[256];
-    // ... evolved algorithm exploiting Apple Silicon architecture
+    // ... 进化的算法利用Apple Silicon架构
 }
 ```
 
-**Performance Impact**: 2.8x speedup on Apple M1 Pro, maintaining numerical accuracy.
+**性能影响**：在Apple M1 Pro上实现2.8倍加速，保持数值精度。
 
 </details>
 
-## 🧬 How OpenEvolve Works
+## 🧬 OpenEvolve如何工作
 
-OpenEvolve implements a sophisticated **evolutionary coding pipeline** that goes far beyond simple optimization:
+OpenEvolve实现了复杂的**进化代码流程**，远超简单优化：
 
-![OpenEvolve Architecture](openevolve-architecture.png)
+![OpenEvolve架构](pictures/openevolve-architecture.png)
 
-### 🎯 **Core Innovation**: MAP-Elites + LLMs
+### 🎯 **核心创新**：MAP-Elites + LLM
 
-- **Quality-Diversity Evolution**: Maintains diverse populations across feature dimensions
-- **Island-Based Architecture**: Multiple populations prevent premature convergence
-- **LLM Ensemble**: Multiple models with intelligent fallback strategies
-- **Artifact Side-Channel**: Error feedback improves subsequent generations
+- **质量-多样性进化**：跨特征维度维护多样化种群
+- **基于岛屿的架构**：多个种群防止过早收敛
+- **LLM集成**：具有智能回退策略的多个模型
+- **工件旁路通道**：错误反馈改进后续世代
 
-### 🚀 **Advanced Features**
-
-<details>
-<summary><b>🔬 Scientific Reproducibility</b></summary>
-
-- **Comprehensive Seeding**: Every component (LLM, database, evaluation) is seeded
-- **Default Seed=42**: Immediate reproducible results out of the box
-- **Deterministic Evolution**: Exact reproduction of runs across machines
-- **Component Isolation**: Hash-based isolation prevents cross-contamination
-
-</details>
+### 🚀 **高级功能**
 
 <details>
-<summary><b>🤖 Advanced LLM Integration</b></summary>
+<summary><b>🔬 科学可重现性</b></summary>
 
-- **Test-Time Compute**: Integration with [OptiLLM](https://github.com/codelion/optillm) for MoA and enhanced reasoning
-- **Universal API**: Works with OpenAI, Google, local models
-- **Plugin Ecosystem**: Support for OptiLLM plugins (readurls, executecode, z3_solver)
-- **Intelligent Ensembles**: Weighted combinations with sophisticated fallback
+- **全面种子化**：每个组件（LLM、数据库、评估）都已种子化
+- **默认种子=42**：开箱即用的即时可重现结果
+- **确定性进化**：跨机器精确重现运行
+- **组件隔离**：基于哈希的隔离防止交叉污染
 
 </details>
 
 <details>
-<summary><b>🧬 Evolution Algorithm Innovations</b></summary>
+<summary><b>🤖 高级LLM集成</b></summary>
 
-- **Double Selection**: Different programs for performance vs inspiration
-- **Adaptive Feature Dimensions**: Custom quality-diversity metrics
-- **Migration Patterns**: Ring topology with controlled gene flow
-- **Multi-Strategy Sampling**: Elite, diverse, and exploratory selection
+- **测试时计算**：与[OptiLLM](https://github.com/codelion/optillm)集成，实现MoA和增强推理
+- **通用API**：适用于OpenAI、Google、本地模型
+- **插件生态系统**：支持OptiLLM插件（readurls、executecode、z3_solver）
+- **智能集成**：具有复杂回退的加权组合
 
 </details>
 
-## 🎯 Perfect For
+<details>
+<summary><b>🧬 进化算法创新</b></summary>
 
-| **Use Case** | **Why OpenEvolve Excels** |
+- **双重选择**：性能与灵感的不同程序
+- **自适应特征维度**：自定义质量-多样性度量
+- **迁移模式**：具有受控基因流的环形拓扑
+- **多策略采样**：精英、多样和探索性选择
+
+</details>
+
+## 🎯 完美适用场景
+
+| **使用案例** | **OpenEvolve的优势** |
 |--------------|---------------------------|
-| 🏃‍♂️ **Performance Optimization** | Discovers hardware-specific optimizations humans miss |
-| 🧮 **Algorithm Discovery** | Finds novel approaches to classic problems |
-| 🔬 **Scientific Computing** | Automates tedious manual tuning processes |
-| 🎮 **Competitive Programming** | Generates multiple solution strategies |
-| 📊 **Multi-Objective Problems** | Pareto-optimal solutions across dimensions |
+| 🏃‍♂️ **性能优化** | 发现人类遗漏的硬件特定优化 |
+| 🧮 **算法发现** | 找到经典问题的新颖方法 |
+| 🔬 **科学计算** | 自动化繁琐的手动调参过程 |
+| 🎮 **竞技编程** | 生成多种解决方案策略 |
+| 📊 **多目标问题** | 跨维度的帕累托最优解 |
 
-## 🛠 Installation & Setup
+## 🛠 安装与设置
 
-### Requirements
-- **Python**: 3.9+ 
-- **LLM Access**: Any OpenAI-compatible API
-- **Optional**: Docker for containerized runs
+### 要求
+- **Python**：3.9+ 
+- **LLM访问**：任何OpenAI兼容的API
+- **可选**：Docker容器化运行
 
-### Installation Options
+### 安装选项
 
 <details>
-<summary><b>📦 PyPI (Recommended)</b></summary>
+<summary><b>📦 PyPI（推荐）</b></summary>
 
 ```bash
 pip install openevolve
@@ -229,7 +229,7 @@ pip install openevolve
 </details>
 
 <details>
-<summary><b>🔧 Development Install</b></summary>
+<summary><b>🔧 开发安装</b></summary>
 
 ```bash
 git clone https://github.com/codelion/openevolve.git
@@ -248,16 +248,16 @@ docker pull ghcr.io/codelion/openevolve:latest
 
 </details>
 
-### LLM Provider Setup
+### LLM提供商设置
 
-OpenEvolve works with **any OpenAI-compatible API**:
+OpenEvolve支持**任何OpenAI兼容的API**：
 
 <details>
-<summary><b>🔥 OpenAI (Direct)</b></summary>
+<summary><b>🔥 OpenAI（直接）</b></summary>
 
 ```bash
 export OPENAI_API_KEY="sk-..."
-# Uses OpenAI endpoints by default
+# 默认使用OpenAI端点
 ```
 
 </details>
@@ -279,7 +279,7 @@ export OPENAI_API_KEY="your-gemini-api-key"
 </details>
 
 <details>
-<summary><b>🏠 Local Models (Ollama/vLLM)</b></summary>
+<summary><b>🏠 本地模型（Ollama/vLLM）</b></summary>
 
 ```yaml
 # config.yaml
@@ -291,51 +291,51 @@ llm:
 </details>
 
 <details>
-<summary><b>⚡ OptiLLM (Advanced)</b></summary>
+<summary><b>⚡ OptiLLM（高级）</b></summary>
 
-For maximum flexibility with rate limiting, model routing, and test-time compute:
+如需最大灵活性的速率限制、模型路由和测试时计算：
 
 ```bash
-# Install OptiLLM
+# 安装OptiLLM
 pip install optillm
 
-# Start OptiLLM proxy
+# 启动OptiLLM代理
 optillm --port 8000
 
-# Point OpenEvolve to OptiLLM
+# 将OpenEvolve指向OptiLLM
 export OPENAI_API_KEY="your-actual-key"
 ```
 
 ```yaml
 llm:
   api_base: "http://localhost:8000/v1"
-  model: "moa&readurls-o3"  # Test-time compute + web access
+  model: "moa&readurls-o3"  # 测试时计算 + 网络访问
 ```
 
 </details>
 
-## 📸 Examples Gallery
+## 📸 示例展示
 
 <div align="center">
 
-### 🏆 **Showcase Projects**
+### 🏆 **展示项目**
 
-| Project | Domain | Achievement | Demo |
+| 项目 | 领域 | 成就 | 演示 |
 |---------|--------|-------------|------|
-| [🎯 **Function Minimization**](examples/function_minimization/) | Optimization | Random → Simulated Annealing | [View Results](examples/function_minimization/openevolve_output/) |
-| [⚡ **MLX GPU Kernels**](examples/mlx_metal_kernel_opt/) | Hardware | 2-3x Apple Silicon speedup | [Benchmarks](examples/mlx_metal_kernel_opt/README.md) |
-| [🔄 **Rust Adaptive Sort**](examples/rust_adaptive_sort/) | Algorithms | Data-aware sorting | [Code Evolution](examples/rust_adaptive_sort/) |
-| [📐 **Symbolic Regression**](examples/symbolic_regression/) | Science | Automated equation discovery | [LLM-SRBench](examples/symbolic_regression/) |
-| [🕸️ **Web Scraper + OptiLLM**](examples/web_scraper_optillm/) | AI Integration | Test-time compute optimization | [Smart Scraping](examples/web_scraper_optillm/) |
+| [🎯 **函数最小化**](examples/function_minimization/) | 优化 | 随机 → 模拟退火 | [查看结果](examples/function_minimization/openevolve_output/) |
+| [⚡ **MLX GPU内核**](examples/mlx_metal_kernel_opt/) | 硬件 | Apple Silicon上2-3倍加速 | [基准测试](examples/mlx_metal_kernel_opt/README.md) |
+| [🔄 **Rust自适应排序**](examples/rust_adaptive_sort/) | 算法 | 数据感知排序 | [代码进化](examples/rust_adaptive_sort/) |
+| [📐 **符号回归**](examples/symbolic_regression/) | 科学 | 自动化方程发现 | [LLM-SRBench](examples/symbolic_regression/) |
+| [🕸️ **网络爬虫 + OptiLLM**](examples/web_scraper_optillm/) | AI集成 | 测试时计算优化 | [智能爬虫](examples/web_scraper_optillm/) |
 
 </div>
 
-### 🎯 **Quick Example**: Function Minimization
+### 🎯 **快速示例**：函数最小化
 
-**Watch OpenEvolve evolve from random search to sophisticated optimization:**
+**观看OpenEvolve从随机搜索进化到复杂优化：**
 
 ```python
-# Initial Program (Random Search)
+# 初始程序（随机搜索）
 def minimize_function(func, bounds, max_evals=1000):
     best_x, best_val = None, float('inf')
     for _ in range(max_evals):
@@ -346,10 +346,10 @@ def minimize_function(func, bounds, max_evals=1000):
     return best_x, best_val
 ```
 
-**↓ Evolution Process ↓**
+**↓ 进化过程 ↓**
 
 ```python
-# Evolved Program (Simulated Annealing + Adaptive Cooling)
+# 进化程序（模拟退火 + 自适应冷却）
 def minimize_function(func, bounds, max_evals=1000):
     x = random_point_in_bounds(bounds)
     temp = adaptive_initial_temperature(func, bounds)
@@ -361,121 +361,121 @@ def minimize_function(func, bounds, max_evals=1000):
         if delta < 0 or random.random() < exp(-delta/temp):
             x = neighbor
             
-        temp *= adaptive_cooling_rate(i, max_evals)  # Dynamic cooling
+        temp *= adaptive_cooling_rate(i, max_evals)  # 动态冷却
     
     return x, func(x)
 ```
 
-**Performance**: 100x improvement in convergence speed!
+**性能**：收敛速度提升100倍！
 
-### 🔬 **Advanced Examples**
+### 🔬 **高级示例**
 
 <details>
-<summary><b>🎨 Prompt Evolution</b></summary>
+<summary><b>🎨 提示词进化</b></summary>
 
-**Evolve prompts instead of code** for better LLM performance:
+**进化提示词而非代码**，获得更好的LLM性能：
 
 ```yaml
-# Example: HotpotQA dataset
-Initial Prompt: "Answer the question based on the context."
+# 示例：HotpotQA数据集
+初始提示词："根据上下文回答问题。"
 
-Evolved Prompt: "As an expert analyst, carefully examine the provided context. 
-Break down complex multi-hop reasoning into clear steps. Cross-reference 
-information from multiple sources to ensure accuracy. Answer: [question]"
+进化提示词："作为专家分析师，仔细检查提供的上下文。
+将复杂的多跳推理分解为清晰的步骤。交叉引用
+来自多个来源的信息以确保准确性。回答：[问题]"
 
-Result: +23% accuracy improvement on HotpotQA benchmark
+结果：HotpotQA基准测试准确率提升23%
 ```
 
-[Full Example](examples/llm_prompt_optimization/)
+[完整示例](examples/llm_prompt_optimization/)
 
 </details>
 
 <details>
-<summary><b>🏁 Competitive Programming</b></summary>
+<summary><b>🏁 竞技编程</b></summary>
 
-**Automatic solution generation** for programming contests:
+**编程竞赛的自动解决方案生成**：
 
 ```python
-# Problem: Find maximum subarray sum
-# OpenEvolve discovers multiple approaches:
+# 问题：寻找最大子数组和
+# OpenEvolve发现多种方法：
 
-# Evolution Path 1: Brute Force → Kadane's Algorithm
-# Evolution Path 2: Divide & Conquer → Optimized Kadane's
-# Evolution Path 3: Dynamic Programming → Space-Optimized DP
+# 进化路径1：暴力 → Kadane算法
+# 进化路径2：分治 → 优化Kadane算法
+# 进化路径3：动态规划 → 空间优化DP
 ```
 
-[Online Judge Integration](examples/online_judge_programming/)
+[在线评测集成](examples/online_judge_programming/)
 
 </details>
 
-## ⚙️ Configuration
+## ⚙️ 配置
 
-OpenEvolve offers extensive configuration for advanced users:
+OpenEvolve为高级用户提供广泛配置：
 
 ```yaml
-# Advanced Configuration Example
+# 高级配置示例
 max_iterations: 1000
-random_seed: 42  # Full reproducibility
+random_seed: 42  # 完全可重现
 
 llm:
-  # Ensemble with test-time compute
+  # 测试时计算的集成
   models:
     - name: "gemini-2.5-pro"
       weight: 0.6
-    - name: "moa&readurls-o3"  # OptiLLM features
+    - name: "moa&readurls-o3"  # OptiLLM功能
       weight: 0.4
   temperature: 0.7
 
 database:
-  # MAP-Elites quality-diversity
+  # MAP-Elites质量-多样性
   population_size: 500
-  num_islands: 5  # Parallel evolution
+  num_islands: 5  # 并行进化
   migration_interval: 20
   feature_dimensions: ["complexity", "diversity", "performance"]
 
 evaluator:
-  enable_artifacts: true      # Error feedback to LLM
-  cascade_evaluation: true    # Multi-stage testing
-  use_llm_feedback: true      # AI code quality assessment
+  enable_artifacts: true      # 向LLM的错误反馈
+  cascade_evaluation: true    # 多阶段测试
+  use_llm_feedback: true      # AI代码质量评估
 
 prompt:
-  # Sophisticated inspiration system
-  num_top_programs: 3         # Best performers
-  num_diverse_programs: 2     # Creative exploration
-  include_artifacts: true     # Execution feedback
+  # 复杂的灵感系统
+  num_top_programs: 3         # 最佳表现者
+  num_diverse_programs: 2     # 创意探索
+  include_artifacts: true     # 执行反馈
   
-  # Custom templates
+  # 自定义模板
   template_dir: "custom_prompts/"
-  use_template_stochasticity: true  # Randomized prompts
+  use_template_stochasticity: true  # 随机化提示词
 ```
 
 <details>
-<summary><b>🎯 Feature Engineering</b></summary>
+<summary><b>🎯 特征工程</b></summary>
 
-**Control how programs are organized in the quality-diversity grid:**
+**控制程序在质量-多样性网格中的组织方式：**
 
 ```yaml
 database:
   feature_dimensions: 
-    - "complexity"      # Built-in: code length
-    - "diversity"       # Built-in: structural diversity
-    - "performance"     # Custom: from your evaluator
-    - "memory_usage"    # Custom: from your evaluator
+    - "complexity"      # 内置：代码长度
+    - "diversity"       # 内置：结构多样性
+    - "performance"     # 自定义：来自您的评估器
+    - "memory_usage"    # 自定义：来自您的评估器
     
   feature_bins:
-    complexity: 10      # 10 complexity levels
-    performance: 20     # 20 performance buckets
-    memory_usage: 15    # 15 memory usage categories
+    complexity: 10      # 10个复杂度级别
+    performance: 20     # 20个性能桶
+    memory_usage: 15    # 15个内存使用类别
 ```
 
-**Important**: Return raw values from evaluator, OpenEvolve handles binning automatically.
+**重要**：从评估器返回原始值，OpenEvolve自动处理分箱。
 
 </details>
 
 <details>
-<summary><b>🎨 Custom Prompt Templates</b></summary>
+<summary><b>🎨 自定义提示词模板</b></summary>
 
-**Advanced prompt engineering** with custom templates:
+**高级提示词工程**与自定义模板：
 
 ```yaml
 prompt:
@@ -483,205 +483,205 @@ prompt:
   use_template_stochasticity: true
   template_variations:
     greeting:
-      - "Let's enhance this code:"
-      - "Time to optimize:"
-      - "Improving the algorithm:"
+      - "让我们增强这段代码："
+      - "优化时间："
+      - "改进算法："
 ```
 
-See [prompt examples](examples/llm_prompt_optimization/templates/) for complete template customization.
+查看[提示词示例](examples/llm_prompt_optimization/templates/)了解完整的模板自定义。
 
 </details>
 
-## 🔧 Artifacts & Debugging
+## 🔧 工件与调试
 
-**Artifacts side-channel** provides rich feedback to accelerate evolution:
+**工件旁路通道**提供丰富反馈以加速进化：
 
 ```python
-# Evaluator can return execution context
+# 评估器可以返回执行上下文
 from openevolve.evaluation_result import EvaluationResult
 
 return EvaluationResult(
     metrics={"performance": 0.85, "correctness": 1.0},
     artifacts={
-        "stderr": "Warning: suboptimal memory access pattern",
+        "stderr": "警告：次优内存访问模式",
         "profiling_data": {...},
-        "llm_feedback": "Code is correct but could use better variable names",
-        "build_warnings": ["unused variable x"]
+        "llm_feedback": "代码正确但可以使用更好的变量名",
+        "build_warnings": ["未使用变量x"]
     }
 )
 ```
 
-**Next generation prompt automatically includes:**
+**下一代提示词自动包含：**
 ```markdown
-## Previous Execution Feedback
-⚠️ Warning: suboptimal memory access pattern
-💡 LLM Feedback: Code is correct but could use better variable names
-🔧 Build Warnings: unused variable x
+## 先前执行反馈
+⚠️ 警告：次优内存访问模式
+💡 LLM反馈：代码正确但可以使用更好的变量名
+🔧 构建警告：未使用变量x
 ```
 
-This creates a **feedback loop** where each generation learns from previous mistakes!
+这创建了**反馈循环**，每一代都从以前的错误中学习！
 
-## 📊 Visualization
+## 📊 可视化
 
-**Real-time evolution tracking** with interactive web interface:
+**实时进化跟踪**与交互式Web界面：
 
 ```bash
-# Install visualization dependencies
+# 安装可视化依赖
 pip install -r scripts/requirements.txt
 
-# Launch interactive visualizer
+# 启动交互式可视化器
 python scripts/visualizer.py
 
-# Or visualize specific checkpoint
+# 或可视化特定检查点
 python scripts/visualizer.py --path examples/function_minimization/openevolve_output/checkpoints/checkpoint_100/
 ```
 
-**Features:**
-- 🌳 **Evolution tree** with parent-child relationships
-- 📈 **Performance tracking** across generations
-- 🔍 **Code diff viewer** showing mutations
-- 📊 **MAP-Elites grid** visualization
-- 🎯 **Multi-metric analysis** with custom dimensions
+**功能：**
+- 🌳 **进化树**与父子关系
+- 📈 **跨代性能跟踪**
+- 🔍 **代码差异查看器**显示突变
+- 📊 **MAP-Elites网格**可视化
+- 🎯 **多指标分析**与自定义维度
 
-![OpenEvolve Visualizer](openevolve-visualizer.png)
+![OpenEvolve可视化器](pictures/openevolve-visualizer.png)
 
-## 🚀 Roadmap
+## 🚀 路线图
 
-### **🔥 Upcoming Features**
+### **🔥 即将推出的功能**
 
-- [ ] **Multi-Modal Evolution**: Images, audio, and text simultaneously
-- [ ] **Federated Learning**: Distributed evolution across multiple machines  
-- [ ] **AutoML Integration**: Hyperparameter and architecture evolution
-- [ ] **Benchmark Suite**: Standardized evaluation across domains
+- [ ] **多模态进化**：同时处理图像、音频和文本
+- [ ] **联邦学习**：跨多台机器的分布式进化  
+- [ ] **AutoML集成**：超参数和架构进化
+- [ ] **基准套件**：跨领域标准化评估
 
-### **🌟 Research Directions**
+### **🌟 研究方向**
 
-- [ ] **Self-Modifying Prompts**: Evolution modifies its own prompting strategy
-- [ ] **Cross-Language Evolution**: Python → Rust → C++ optimization chains
-- [ ] **Neurosymbolic Reasoning**: Combine neural and symbolic approaches
-- [ ] **Human-AI Collaboration**: Interactive evolution with human feedback
+- [ ] **自修改提示词**：进化修改自身的提示策略
+- [ ] **跨语言进化**：Python → Rust → C++优化链
+- [ ] **神经符号推理**：结合神经和符号方法
+- [ ] **人-AI协作**：带人类反馈的交互式进化
 
-Want to contribute? Check out our [roadmap discussions](https://github.com/codelion/openevolve/discussions/categories/roadmap)!
+想要贡献？查看我们的[路线图讨论](https://github.com/codelion/openevolve/discussions/categories/roadmap)！
 
-## 🤔 FAQ
+## 🤔 常见问题
 
 <details>
-<summary><b>💰 How much does it cost to run?</b></summary>
+<summary><b>💰 运行成本是多少？</b></summary>
 
-**Cost depends on your LLM provider and iterations:**
+**成本取决于您的LLM提供商和迭代次数：**
 
-- **o3**: ~$0.15-0.60 per iteration (depending on code size)
-- **o3-mini**: ~$0.03-0.12 per iteration (more cost-effective)
-- **Gemini-2.5-Pro**: ~$0.08-0.30 per iteration
-- **Gemini-2.5-Flash**: ~$0.01-0.05 per iteration (fastest and cheapest)
-- **Local models**: Nearly free after setup
-- **OptiLLM**: Use cheaper models with test-time compute for better results
+- **o3**：每次迭代约$0.15-0.60（取决于代码大小）
+- **o3-mini**：每次迭代约$0.03-0.12（更具成本效益）
+- **Gemini-2.5-Pro**：每次迭代约$0.08-0.30
+- **Gemini-2.5-Flash**：每次迭代约$0.01-0.05（最快且最便宜）
+- **本地模型**：设置后几乎免费
+- **OptiLLM**：使用更便宜的模型配合测试时计算获得更好结果
 
-**Cost-saving tips:**
-- Start with fewer iterations (100-200)
-- Use o3-mini, Gemini-2.5-Flash or local models for exploration
-- Use cascade evaluation to filter bad programs early
-- Configure smaller population sizes initially
+**节省成本技巧：**
+- 从较少的迭代开始（100-200）
+- 使用o3-mini、Gemini-2.5-Flash或本地模型进行探索
+- 使用级联评估提前过滤不良程序
+- 最初配置较小的种群规模
 
 </details>
 
 <details>
-<summary><b>🆚 How does this compare to manual optimization?</b></summary>
+<summary><b>🆚 与手动优化相比如何？</b></summary>
 
-| Aspect | Manual | OpenEvolve |
+| 方面 | 手动 | OpenEvolve |
 |--------|--------|------------|
-| **Initial Learning** | Weeks to understand domain | Minutes to start |
-| **Solution Quality** | Depends on expertise | Consistently explores novel approaches |
-| **Time Investment** | Days-weeks per optimization | Hours for complete evolution |
-| **Reproducibility** | Hard to replicate exact process | Perfect reproduction with seeds |
-| **Scaling** | Doesn't scale beyond human capacity | Parallel evolution across islands |
+| **初始学习** | 需要数周理解领域 | 几分钟即可开始 |
+| **解决方案质量** | 取决于专业知识 | 始终探索新颖方法 |
+| **时间投入** | 每次优化需要数天到数周 | 数小时完成完整进化 |
+| **可重现性** | 难以复制确切过程 | 用种子完美重现 |
+| **扩展性** | 无法超越人类能力扩展 | 跨岛屿的并行进化 |
 
-**OpenEvolve shines** when you need to explore large solution spaces or optimize for multiple objectives simultaneously.
-
-</details>
-
-<details>
-<summary><b>🔧 Can I use my own LLM?</b></summary>
-
-**Yes!** OpenEvolve supports any OpenAI-compatible API:
-
-- **Commercial**: OpenAI, Google, Cohere
-- **Local**: Ollama, vLLM, LM Studio, text-generation-webui
-- **Advanced**: OptiLLM for routing and test-time compute
-
-Just set the `api_base` in your config to point to your endpoint.
+当您需要探索大型解决方案空间或同时优化多个目标时，**OpenEvolve表现突出**。
 
 </details>
 
 <details>
-<summary><b>🚨 What if evolution gets stuck?</b></summary>
+<summary><b>🔧 我可以使用自己的LLM吗？</b></summary>
 
-**Built-in mechanisms prevent stagnation:**
+**可以！** OpenEvolve支持任何OpenAI兼容的API：
 
-- **Island migration**: Fresh genes from other populations
-- **Temperature control**: Exploration vs exploitation balance
-- **Diversity maintenance**: MAP-Elites prevents convergence
-- **Artifact feedback**: Error messages guide improvements
-- **Template stochasticity**: Randomized prompts break patterns
+- **商业**：OpenAI、Google、Cohere
+- **本地**：Ollama、vLLM、LM Studio、text-generation-webui
+- **高级**：用于路由和测试时计算的OptiLLM
 
-**Manual interventions:**
-- Increase `num_diverse_programs` for more exploration
-- Add custom feature dimensions to diversify search
-- Use template variations to randomize prompts
-- Adjust migration intervals for more cross-pollination
+只需在配置中设置`api_base`指向您的端点。
 
 </details>
 
 <details>
-<summary><b>📈 How do I measure success?</b></summary>
+<summary><b>🚨 如果进化卡住了怎么办？</b></summary>
 
-**Multiple success metrics:**
+**内置机制防止停滞：**
 
-1. **Primary Metric**: Your evaluator's `combined_score` or metric average
-2. **Convergence**: Best score improvement over time
-3. **Diversity**: MAP-Elites grid coverage
-4. **Efficiency**: Iterations to reach target performance
-5. **Robustness**: Performance across different test cases
+- **岛屿迁移**：来自其他种群的新鲜基因
+- **温度控制**：探索与利用的平衡
+- **多样性维护**：MAP-Elites防止收敛
+- **工件反馈**：错误消息指导改进
+- **模板随机性**：随机化提示词打破模式
 
-**Use the visualizer** to track all metrics in real-time and identify when evolution has converged.
+**人工干预：**
+- 增加`num_diverse_programs`进行更多探索
+- 添加自定义特征维度以多样化搜索
+- 使用模板变体随机化提示词
+- 调整迁移间隔以获得更多交叉授粉
 
 </details>
 
-### 🌟 **Contributors**
+<details>
+<summary><b>📈 如何衡量成功？</b></summary>
 
-Thanks to all our amazing contributors who make OpenEvolve possible!
+**多种成功指标：**
+
+1. **主要指标**：您的评估器的`combined_score`或指标平均值
+2. **收敛性**：随时间的最佳分数改进
+3. **多样性**：MAP-Elites网格覆盖率
+4. **效率**：达到目标性能的迭代次数
+5. **鲁棒性**：跨不同测试用例的性能
+
+**使用可视化器**实时跟踪所有指标，并确定进化何时收敛。
+
+</details>
+
+### 🌟 **贡献者**
+
+感谢所有使OpenEvolve成为可能的出色贡献者！
 
 <a href="https://github.com/codelion/openevolve/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=codelion/openevolve" />
 </a>
 
-### 🤝 **Contributing**
+### 🤝 **贡献**
 
-We welcome contributions! Here's how to get started:
+我们欢迎贡献！以下是开始方法：
 
-1. 🍴 **Fork** the repository
-2. 🌿 **Create** your feature branch: `git checkout -b feat-amazing-feature`
-3. ✨ **Add** your changes and tests
-4. ✅ **Test** everything: `python -m unittest discover tests`
-5. 📝 **Commit** with a clear message
-6. 🚀 **Push** and create a Pull Request
+1. 🍴 **Fork**仓库
+2. 🌿 **创建**您的功能分支：`git checkout -b feat-amazing-feature`
+3. ✨ **添加**您的更改和测试
+4. ✅ **测试**所有内容：`python -m unittest discover tests`
+5. 📝 **提交**清晰的消息
+6. 🚀 **推送**并创建拉取请求
 
-**New to open source?** Check out our [Contributing Guide](CONTRIBUTING.md) and look for [`good-first-issue`](https://github.com/codelion/openevolve/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) labels!
+**开源新手？** 查看我们的[贡献指南](CONTRIBUTING.md)并寻找[`good-first-issue`](https://github.com/codelion/openevolve/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)标签！
 
-### 📚 **Academic & Research**
+### 📚 **学术与研究**
 
-**Articles & Blog Posts About OpenEvolve**:
-- [Towards Open Evolutionary Agents](https://huggingface.co/blog/driaforall/towards-open-evolutionary-agents) - Evolution of coding agents and the open-source movement
-- [OpenEvolve: GPU Kernel Discovery](https://huggingface.co/blog/codelion/openevolve-gpu-kernel-discovery) - Automated discovery of optimized GPU kernels with 2-3x speedups
-- [OpenEvolve: Evolutionary Coding with LLMs](https://huggingface.co/blog/codelion/openevolve) - Introduction to evolutionary algorithm discovery using large language models
+**关于OpenEvolve的文章与博客**：
+- [走向开放进化智能体](https://huggingface.co/blog/driaforall/towards-open-evolutionary-agents) - 编码智能体的进化和开源运动
+- [OpenEvolve：GPU内核发现](https://huggingface.co/blog/codelion/openevolve-gpu-kernel-discovery) - 自动发现优化的GPU内核，实现2-3倍加速
+- [OpenEvolve：使用LLM的进化编码](https://huggingface.co/blog/codelion/openevolve) - 使用大型语言模型进行进化算法发现的介绍
 
-## 📊 Citation
+## 📊 引用
 
-If you use OpenEvolve in your research, please cite:
+如果您在研究中使用OpenEvolve，请引用：
 
 ```bibtex
 @software{openevolve,
-  title = {OpenEvolve: an open-source evolutionary coding agent},
+  title = {OpenEvolve: 开源进化代码智能体},
   author = {Asankhaya Sharma},
   year = {2025},
   publisher = {GitHub},
@@ -692,10 +692,10 @@ If you use OpenEvolve in your research, please cite:
 
 <div align="center">
 
-### **🚀 Ready to evolve your code?**
+### **🚀 准备好进化您的代码了吗？**
 
-**Made with ❤️ by the OpenEvolve community**
+**由❤️ OpenEvolve社区制作**
 
-*Star ⭐ this repository if OpenEvolve helps you discover breakthrough algorithms!*
+*如果OpenEvolve帮助您发现突破性算法，请给⭐此仓库！*
 
 </div>

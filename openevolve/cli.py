@@ -19,23 +19,19 @@ def parse_args() -> argparse.Namespace:
     """Parse command-line arguments"""
     parser = argparse.ArgumentParser(description="OpenEvolve - Evolutionary coding agent")
 
-    parser.add_argument("initial_program", help="Path to the initial program file")
+    parser.add_argument("problem", help="Path to the initial program file")
 
-    parser.add_argument(
-        "evaluation_file", help="Path to the evaluation file containing an 'evaluate' function"
-    )
+    parser.add_argument("--initial_program", "-p", help="Path to the initial program file", default=None)
+
+    parser.add_argument("evaluation_file", "-e", help="Path to the evaluation file containing an 'evaluate' function", default=None)
 
     parser.add_argument("--config", "-c", help="Path to configuration file (YAML)", default=None)
 
     parser.add_argument("--output", "-o", help="Output directory for results", default=None)
 
-    parser.add_argument(
-        "--iterations", "-i", help="Maximum number of iterations", type=int, default=None
-    )
+    parser.add_argument("--iterations", "-i", help="Maximum number of iterations", type=int, default=None)
 
-    parser.add_argument(
-        "--target-score", "-t", help="Target score to reach", type=float, default=None
-    )
+    parser.add_argument("--target-score", "-t", help="Target score to reach", type=float, default=None)
 
     parser.add_argument(
         "--log-level",
@@ -69,41 +65,60 @@ async def main_async() -> int:
     """
     args = parse_args()
 
-    # Check if files exist
-    if not os.path.exists(args.initial_program):
+
+    problem = args.problem
+
+
+    initial_program = args.initial_program
+    evaluation_file = args.evaluation_file
+    config = args.config
+    if not os.path.isdir(problem):
+        print(f"Error: Problem path '{problem}' is not a directory")
+        return 1
+
+    if initial_program is None:
+        if os.path.exists(os.path.join(problem, "initial_program.py")):
+            initial_program = os.path.join(problem, "initial_program.py")
+        elif os.path.exists(os.path.join(problem, "initial_program.txt")):
+            initial_program = os.path.join(problem, "initial_program.txt")
+    elif not os.path.exists(initial_program):
         print(f"Error: Initial program file '{args.initial_program}' not found")
         return 1
 
-    if not os.path.exists(args.evaluation_file):
+    if evaluation_file is None:
+        if os.path.exists(os.path.join(problem, "evaluation.py")):
+            evaluation_file = os.path.join(problem, "evaluation.py")
+    elif not os.path.exists(evaluation_file):
         print(f"Error: Evaluation file '{args.evaluation_file}' not found")
         return 1
 
-    # Create config object with command-line overrides
-    config = None
-    if args.api_base or args.primary_model or args.secondary_model:
-        # Load base config from file or defaults
-        config = load_config(args.config)
+    if args.output is None:
+        if not os.path.exists(os.path.join(problem, "config.yaml")):
+            args.output = os.path.join(problem, "config.yaml")
 
-        # Apply command-line overrides
-        if args.api_base:
-            config.llm.api_base = args.api_base
-            print(f"Using API base: {config.llm.api_base}")
+    # Load base config from file or defaults
+    config = load_config(args.config)
 
-        if args.primary_model:
-            config.llm.primary_model = args.primary_model
-            print(f"Using primary model: {config.llm.primary_model}")
+    # Apply command-line overrides
+    if args.api_base:
+        config.llm.api_base = args.api_base
+        print(f"Using API base: {config.llm.api_base}")
 
-        if args.secondary_model:
-            config.llm.secondary_model = args.secondary_model
-            print(f"Using secondary model: {config.llm.secondary_model}")
+    if args.primary_model:
+        config.llm.primary_model = args.primary_model
+        print(f"Using primary model: {config.llm.primary_model}")
+
+    if args.secondary_model:
+        config.llm.secondary_model = args.secondary_model
+        print(f"Using secondary model: {config.llm.secondary_model}")
 
     # Initialize OpenEvolve
     try:
         openevolve = OpenEvolve(
-            initial_program_path=args.initial_program,
-            evaluation_file=args.evaluation_file,
+            initial_program_path=initial_program,
+            evaluation_file=evaluation_file,
             config=config,
-            config_path=args.config if config is None else None,
+            # config_path=config if config is None else None,
             output_dir=args.output,
         )
 
