@@ -411,8 +411,9 @@ def load_config(config_path: Optional[Union[str, Path]] = None) -> Config:
         config.llm.update_model_params({"api_key": api_key})
 
     if config.llm.api_base is None:
-        api_base = os.environ.get("OPENAI_API_BASE", "https://api.openai.com/v1")
-        config.llm.update_model_params({"api_base": api_base})
+        api_base = os.environ.get("OPENAI_API_BASE")
+        if api_base is not None:
+            config.llm.update_model_params({"api_base": api_base})
 
     # Make the system message available to the individual models, in case it is not provided from the prompt sampler
     config.llm.update_model_params({"system_message": config.prompt.system_message})
