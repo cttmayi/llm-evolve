@@ -1,0 +1,10 @@
+{"name": "x", "type": "float", "min": -10, "max": 10}
+{"name": "y", "type": "float", "min": -10, "max": 10}
+{"name": "z", "type": "float", "min": -10, "max": 10}
+{"name": "a", "type": "float", "min": -10, "max": 10}
+{"name": "b", "type": "float", "min": -30, "max": 30}
+{"name": "c", "type": "float", "min": -30, "max": 30}
+{"name": "w", "type": "float", "min": -30, "max": 30}
+{"name": "h", "type": "float", "min": -30, "max": 30}
+{"name": "wt", "type": "float", "min": -30, "max": 30}
+{"name": "ht", "type": "float", "min": -30, "max": 30}

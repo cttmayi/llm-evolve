@@ -1,7 +1,7 @@
 """
 Evaluator for detecting error
 """
-
+import os
 import importlib.util
 import numpy as np
 import time
@@ -33,16 +33,30 @@ def run_with_timeout(func, args=(), kwargs={}, timeout_seconds=5):
             raise TimeoutError(f"Function timed out after {timeout_seconds} seconds")
 
 
-def safe_float(value):
-    """Convert a value to float safely"""
-    try:
-        return float(value)
-    except (TypeError, ValueError):
-        print(f"Warning: Could not convert {value} of type {type(value)} to float")
-        return 0.0
+
+def get_values_from_file(header_file, data_file, true_value=True):
+    # Load values from jsonl file
+    # header jsonl: {'name': "x", "w": 16}
+    # data jsonl: [1,2,4,8, ....]
+    import json
+    header = []
+    with open(header_file, 'r') as hf:
+        for line in hf:
+            v = json.loads(line)
+            header.append(v['name'])
+
+    values = []
+    with open(data_file, 'r') as df:
+        for line in df:
+            data = json.loads(line)
+            input_data = {}
+            for i, name in enumerate(header):
+                input_data[name] = data[i]
+            values.append((input_data, true_value))
+    return values
 
 
-def get_train_values():
+def get_values():
 
     def create_value(ret):
         x = np.random.randint(-100, 100)
@@ -56,6 +70,8 @@ def get_train_values():
             'c': 60,
             'w': 1080 if x % 2 == 0 else 720,
             'h': 720 if x % 2 == 0  else 480,
+            'wt': 1080 + np.random.randint(10, 20) if x % 2 == 0 else 720 + np.random.randint(10, 20),
+            'ht': 720 + np.random.randint(8, 16) if x % 2 == 0  else 480 + np.random.randint(8, 16)
             }, ret]
 
     values = []
@@ -82,6 +98,14 @@ def get_train_values():
     value = create_value(False)
     value[0]['a'] = 1 if value[0]['a'] != 1 else 0
     values.append(value)    
+
+    value = create_value(False)
+    value[0]['wt'] = value[0]['w']
+    values.append(value)   
+
+    value = create_value(False)
+    value[0]['ht'] = value[0]['h'] - 3
+    values.append(value)  
 
     return values
 
@@ -115,6 +139,19 @@ def get_program(program_path):
     return program
 
 
+data_values = get_values_from_file(
+    os.path.join(os.path.dirname(__file__), "data/header.jsonl"),
+    os.path.join(os.path.dirname(__file__), "data/data.jsonl"),
+    true_value=True
+)
+data_error_values = get_values_from_file(
+    os.path.join(os.path.dirname(__file__), "data/header.jsonl"),
+    os.path.join(os.path.dirname(__file__), "data/data_error.jsonl"),
+    true_value=False
+)
+
+TOTAL_VALUES = data_values + data_error_values
+
 def evaluate(program_path):
     """
     Args:
@@ -140,7 +177,12 @@ def evaluate(program_path):
             
             return create_result(0.0, 0.0, 0.0, error_artifacts)
 
-        total_values = get_train_values()
+        # total_values = get_values()
+        total_values = TOTAL_VALUES
+
+        # print(f"Loaded {len(total_values)} test cases.")
+        # for i in range(min(2, len(total_values))):
+        #     print(f"Test case {i}: Input: {total_values[i][0]}, Expected: {total_values[i][1]}")
 
         # Run multiple trials
         true_values_error = []
@@ -210,7 +252,23 @@ def evaluate(program_path):
 
 if __name__ == "__main__":
     # Test the evaluator
-    import os
-    program_path = os.path.join(os.path.dirname(__file__), "initial_program.py")
-    result = evaluate(program_path)
-    print(f"Evaluation Result: {result}")
+    if False:
+        program_path = os.path.join(os.path.dirname(__file__), "initial_program.py")
+        result = evaluate(program_path)
+        print(f"Evaluation Result: {result}")
+
+    else:
+    # 保存到Jsonl文件, Header和Data 分开保存, 正常和错误的分开保存
+        import json
+        values = get_values()
+        header = {"x": "int", "y": "int", "z": "int", "a": "int", "b": "int", "c": "int", "w": "int", "h": "int", "wt": "int", "ht": "int"}
+        # with open("problems/search_rules/data/data_header.jsonl", 'w') as hf:
+        #     hf.write(json.dumps(header) + '\n')
+        with open("problems/search_rules/data/data.jsonl", 'w') as df:
+            for value in values:
+                if value[1]:
+                    df.write(json.dumps([value[0][key] for key in header]) + '\n')
+        with open("problems/search_rules/data/data_error.jsonl", 'w') as ef:
+            for value in values:
+                if not value[1]:
+                    ef.write(json.dumps([value[0][key] for key in header]) + '\n')  
