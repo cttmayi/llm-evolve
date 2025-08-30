@@ -32,13 +32,10 @@ make lint
 ### 运行OpenEvolve
 ```bash
 # 基本进化运行
-python openevolve-run.py path/to/initial_program.py path/to/evaluator.py --config path/to/config.yaml --iterations 1000
+python openevolve-run.py path/to/problem --iterations 1000
 
 # 从检查点恢复
-python openevolve-run.py path/to/initial_program.py path/to/evaluator.py \
-  --config path/to/config.yaml \
-  --checkpoint path/to/checkpoint_directory \
-  --iterations 50
+python openevolve-run.py path/to/problem --checkpoint path/to/checkpoint_directory --iterations 50
 ```
 
 ### 可视化
