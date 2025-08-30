@@ -79,12 +79,8 @@ class OpenEvolve:
         output_dir: Optional[str] = None,
     ):
         # Load configuration
-        # if config is not None:
         # Use provided Config object directly
         self.config = config
-        # else:
-        #     # Load from file or use defaults
-        #     self.config = load_config(config_path)
 
         # Set up output directory
         self.output_dir = output_dir or os.path.join(

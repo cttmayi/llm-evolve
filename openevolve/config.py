@@ -42,7 +42,7 @@ class LLMConfig(LLMModelConfig):
     """Configuration for LLM models"""
 
     # API configuration
-    api_base: str = "https://api.openai.com/v1"
+    api_base: str = None
 
     # Generation parameters
     system_message: Optional[str] = "system_message"
@@ -406,12 +406,25 @@ def load_config(config_path: Optional[Union[str, Path]] = None) -> Config:
         config = Config()
 
         # Use environment variables if available
+    if config.llm.api_key is None:
         api_key = os.environ.get("OPENAI_API_KEY")
-        api_base = os.environ.get("OPENAI_API_BASE", "https://api.openai.com/v1")
+        config.llm.api_key = api_key
+        config.llm.update_model_params({"api_key": api_key})
 
-        config.llm.update_model_params({"api_key": api_key, "api_base": api_base})
+    if config.llm.api_base is None:
+        api_base = os.environ.get("OPENAI_API_BASE", "https://api.openai.com/v1")
+        config.llm.api_base = api_base
+        config.llm.update_model_params({"api_base": api_base})
 
     # Make the system message available to the individual models, in case it is not provided from the prompt sampler
     config.llm.update_model_params({"system_message": config.prompt.system_message})
+
+    # print("************ Configuration loaded: ************")
+    # print(f"Using LLM API base: {config.llm.api_base}")
+    # print(f"Using LLM API key: {config.llm.api_key}")
+
+    # import sys
+    # sys.exit(0)  # TEMPORARY
+
 
     return config

@@ -8,6 +8,7 @@ import multiprocessing as mp
 import pickle
 import signal
 import time
+import traceback
 from concurrent.futures import ProcessPoolExecutor, Future
 from dataclasses import dataclass, asdict
 from pathlib import Path
@@ -185,6 +186,7 @@ def _run_iteration_worker(
                 )
             )
         except Exception as e:
+            traceback.print_exc()
             logger.error(f"LLM generation failed: {e}")
             return SerializableResult(
                 error=f"LLM generation failed: {str(e)}", 

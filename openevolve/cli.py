@@ -19,11 +19,7 @@ def parse_args() -> argparse.Namespace:
     """Parse command-line arguments"""
     parser = argparse.ArgumentParser(description="OpenEvolve - Evolutionary coding agent")
 
-    parser.add_argument("problem", help="Path to the initial program file")
-
-    parser.add_argument("--initial_program", "-p", help="Path to the initial program file", default=None)
-
-    parser.add_argument("evaluation_file", "-e", help="Path to the evaluation file containing an 'evaluate' function", default=None)
+    parser.add_argument("problem", help="Path to the initial program directory", default=None)
 
     parser.add_argument("--config", "-c", help="Path to configuration file (YAML)", default=None)
 
@@ -47,14 +43,47 @@ def parse_args() -> argparse.Namespace:
         default=None,
     )
 
-    parser.add_argument("--api-base", help="Base URL for the LLM API", default=None)
-
-    parser.add_argument("--primary-model", help="Primary LLM model name", default=None)
-
-    parser.add_argument("--secondary-model", help="Secondary LLM model name", default=None)
-
     return parser.parse_args()
 
+
+def get_config_overrides(args: argparse.Namespace) -> Dict:
+    """Get configuration overrides from command-line arguments"""
+    overrides = {}
+    if args.api_base:
+        overrides["llm.api_base"] = args.api_base
+    if args.primary_model:
+        overrides["llm.primary_model"] = args.primary_model
+    if args.secondary_model:
+        overrides["llm.secondary_model"] = args.secondary_model
+    if args.iterations is not None:
+        overrides["evolution.iterations"] = args.iterations
+    if args.target_score is not None:
+        overrides["evolution.target_score"] = args.target_score
+    return overrides
+
+
+
+def get_initial_program_path(problem_path: str) -> Optional[str]:
+    """Get the path to the initial program file"""
+    # 任意目录下的 initial_program.* 文件
+    for filename in os.listdir(problem_path):
+        if filename.startswith("initial_program."):
+            return os.path.join(problem_path, filename)
+    return None
+
+def get_evaluation_file_path(problem_path: str) -> Optional[str]:
+    """Get the path to the evaluation file"""
+    eval_path = os.path.join(problem_path, "evaluator.py")
+    if os.path.exists(eval_path):
+        return eval_path
+    return None
+
+def get_config_file_path(problem_path: str) -> Optional[str]:
+    """Get the path to the configuration file"""
+    config_path = os.path.join(problem_path, "config.yaml")
+    if os.path.exists(config_path):
+        return config_path
+    return None
 
 async def main_async() -> int:
     """
@@ -65,55 +94,33 @@ async def main_async() -> int:
     """
     args = parse_args()
 
-
     problem = args.problem
 
-
-    initial_program = args.initial_program
-    evaluation_file = args.evaluation_file
-    config = args.config
-    if not os.path.isdir(problem):
-        print(f"Error: Problem path '{problem}' is not a directory")
-        return 1
-
-    if initial_program is None:
-        if os.path.exists(os.path.join(problem, "initial_program.py")):
-            initial_program = os.path.join(problem, "initial_program.py")
-        elif os.path.exists(os.path.join(problem, "initial_program.txt")):
-            initial_program = os.path.join(problem, "initial_program.txt")
-    elif not os.path.exists(initial_program):
-        print(f"Error: Initial program file '{args.initial_program}' not found")
-        return 1
-
-    if evaluation_file is None:
-        if os.path.exists(os.path.join(problem, "evaluation.py")):
-            evaluation_file = os.path.join(problem, "evaluation.py")
-    elif not os.path.exists(evaluation_file):
-        print(f"Error: Evaluation file '{args.evaluation_file}' not found")
-        return 1
-
-    if args.output is None:
-        if not os.path.exists(os.path.join(problem, "config.yaml")):
-            args.output = os.path.join(problem, "config.yaml")
+    config_file = args.config
+    if config_file is None:
+        config_file = get_config_file_path(problem)
 
     # Load base config from file or defaults
-    config = load_config(args.config)
+    config = load_config(config_file)
 
-    # Apply command-line overrides
-    if args.api_base:
-        config.llm.api_base = args.api_base
-        print(f"Using API base: {config.llm.api_base}")
+    initial_program = get_initial_program_path(problem)
 
-    if args.primary_model:
-        config.llm.primary_model = args.primary_model
-        print(f"Using primary model: {config.llm.primary_model}")
+    if initial_program is None:
+        print(f"Error: Initial program file not found")
+        return 1
 
-    if args.secondary_model:
-        config.llm.secondary_model = args.secondary_model
-        print(f"Using secondary model: {config.llm.secondary_model}")
+    evaluation_file = get_evaluation_file_path(problem)
+    if evaluation_file is None:
+        print(f"Error: Evaluation file not found")
+        return 1
 
     # Initialize OpenEvolve
     try:
+        print("************* OpenEvolve Starting ************")
+        print(f"Loading configuration from: {config_file if config_file else 'defaults'}")
+        print(f"Initial program: {initial_program}")
+        print(f"Evaluation file: {evaluation_file}")
+
         openevolve = OpenEvolve(
             initial_program_path=initial_program,
             evaluation_file=evaluation_file,
@@ -176,7 +183,6 @@ async def main_async() -> int:
     except Exception as e:
         print(f"Error: {str(e)}")
         import traceback
-
         traceback.print_exc()
         return 1
 
