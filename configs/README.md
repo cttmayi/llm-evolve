@@ -1,67 +1,67 @@
-# OpenEvolve Configuration Files
+# OpenEvolve 配置文件
 
-This directory contains configuration files for OpenEvolve with examples for different use cases.
+此目录包含 OpenEvolve 的配置文件，针对不同用例提供了示例。
 
-## Configuration Files
+## 配置文件
 
 ### `default_config.yaml`
-The main configuration file containing all available options with sensible defaults. This file includes:
-- Complete documentation for all configuration parameters
-- Default values for all settings
-- **Island-based evolution parameters** for proper evolutionary diversity
+主配置文件，包含所有可用选项和合理的默认值。此文件包括：
+- 所有配置参数的完整文档
+- 所有设置的默认值
+- **基于岛屿进化的参数** 以实现适当的进化多样性
 
-Use this file as a template for your own configurations.
+将此文件作为您自己配置的模板。
 
 ### `island_config_example.yaml`
-A practical example configuration demonstrating proper island-based evolution setup. Shows:
-- Recommended island settings for most use cases
-- Balanced migration parameters
-- Complete working configuration
+一个实用的示例配置，演示了正确的基于岛屿进化设置。展示了：
+- 大多数用例的推荐岛屿设置
+- 平衡的迁移参数
+- 完整的工作配置
 
 ### `island_examples.yaml`
-Multiple example configurations for different scenarios:
-- **Maximum Diversity**: Many islands, frequent migration
-- **Focused Exploration**: Few islands, rare migration  
-- **Balanced Approach**: Default recommended settings
-- **Quick Exploration**: Small-scale rapid testing
-- **Large-Scale Evolution**: Complex optimization runs
+针对不同场景的多种示例配置：
+- **最大多样性**：多个岛屿，频繁迁移
+- **专注探索**：少量岛屿，罕见迁移
+- **平衡方法**：默认推荐设置
+- **快速探索**：小规模快速测试
+- **大规模进化**：复杂优化运行
 
-Includes guidelines for choosing parameters based on your problem characteristics.
+包含根据问题特征选择参数的指南。
 
-## Island-Based Evolution Parameters
+## 基于岛屿进化参数
 
-The key new parameters for proper evolutionary diversity are:
+实现适当进化多样性的关键新参数是：
 
 ```yaml
 database:
-  num_islands: 5                      # Number of separate populations
-  migration_interval: 50              # Migrate every N generations  
-  migration_rate: 0.1                 # Fraction of top programs to migrate
+  num_islands: 5                      # 独立种群的数量
+  migration_interval: 50              # 每N代迁移一次
+  migration_rate: 0.1                 # 迁移顶级程序的比例
 ```
 
-### Parameter Guidelines
+### 参数指南
 
-- **num_islands**: 3-10 for most problems (more = more diversity)
-- **migration_interval**: 25-100 generations (higher = more independence)
-- **migration_rate**: 0.05-0.2 (5%-20%, higher = faster knowledge sharing)
+- **num_islands**：大多数问题使用3-10个（越多=越多样）
+- **migration_interval**：25-100代（越高=越独立）
+- **migration_rate**：0.05-0.2（5%-20%，越高=知识共享越快）
 
-### When to Use What
+### 何时使用何种配置
 
-- **Complex problems** → More islands, less frequent migration
-- **Simple problems** → Fewer islands, more frequent migration
-- **Long runs** → More islands to maintain diversity
-- **Short runs** → Fewer islands for faster convergence
+- **复杂问题** → 更多岛屿，较不频繁的迁移
+- **简单问题** → 较少岛屿，更频繁的迁移
+- **长时间运行** → 更多岛屿以保持多样性
+- **短时间运行** → 较少岛屿以更快收敛
 
-## Usage
+## 使用方法
 
-Copy any of these files as a starting point for your configuration:
+复制任何这些文件作为您配置的起点：
 
 ```bash
 cp configs/default_config.yaml my_config.yaml
-# Edit my_config.yaml for your specific needs
+# 编辑 my_config.yaml 以满足您的特定需求
 ```
 
-Then use with OpenEvolve:
+然后与 OpenEvolve 一起使用：
 
 ```python
 from openevolve import OpenEvolve
