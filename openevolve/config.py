@@ -408,12 +408,10 @@ def load_config(config_path: Optional[Union[str, Path]] = None) -> Config:
         # Use environment variables if available
     if config.llm.api_key is None:
         api_key = os.environ.get("OPENAI_API_KEY")
-        config.llm.api_key = api_key
         config.llm.update_model_params({"api_key": api_key})
 
     if config.llm.api_base is None:
         api_base = os.environ.get("OPENAI_API_BASE", "https://api.openai.com/v1")
-        config.llm.api_base = api_base
         config.llm.update_model_params({"api_base": api_base})
 
     # Make the system message available to the individual models, in case it is not provided from the prompt sampler
