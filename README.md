@@ -97,17 +97,7 @@ print(f'最佳分数: {result.best_score:.4f}')
 **需要更多控制？** 使用完整的CLI：
 
 ```bash
-python openevolve-run.py examples/function_minimization/initial_program.py \
-  examples/function_minimization/evaluator.py \
-  --config examples/function_minimization/config.yaml \
-  --iterations 1000
-```
-
-**更喜欢Docker？**
-```bash
-docker run --rm -v $(pwd):/app ghcr.io/codelion/openevolve:latest \
-  examples/function_minimization/initial_program.py \
-  examples/function_minimization/evaluator.py --iterations 100
+python main.py problems/function_minimization --iterations 1000
 ```
 
 ## 🎬 实际应用展示
