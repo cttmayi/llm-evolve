@@ -15,23 +15,23 @@ class LLMModelConfig:
     """Configuration for a single LLM model"""
 
     # API configuration
-    api_base: str = None
+    api_base: Optional[str] = None
     api_key: Optional[str] = None
-    name: str = None
+    name: Optional[str] = None
 
     # Weight for model in ensemble
     weight: float = 1.0
 
     # Generation parameters
     system_message: Optional[str] = None
-    temperature: float = None
-    top_p: float = None
-    max_tokens: int = None
+    temperature: Optional[float] = None
+    top_p: Optional[float] = None
+    max_tokens: Optional[int] = None
 
     # Request parameters
-    timeout: int = None
-    retries: int = None
-    retry_delay: int = None
+    timeout: Optional[int] = None
+    retries: Optional[int] = None
+    retry_delay: Optional[int] = None
 
     # Reproducibility
     random_seed: Optional[int] = None
@@ -42,7 +42,7 @@ class LLMConfig(LLMModelConfig):
     """Configuration for LLM models"""
 
     # API configuration
-    api_base: str = None
+    api_base: Optional[str] = None
 
     # Generation parameters
     system_message: Optional[str] = "system_message"
@@ -62,10 +62,10 @@ class LLMConfig(LLMModelConfig):
     evaluator_models: List[LLMModelConfig] = field(default_factory=lambda: [])
 
     # Backwardes compatibility with primary_model(_weight) options
-    primary_model: str = None
-    primary_model_weight: float = None
-    secondary_model: str = None
-    secondary_model_weight: float = None
+    primary_model: Optional[str] = None
+    primary_model_weight: Optional[float] = None
+    secondary_model: Optional[str] = None
+    secondary_model_weight: Optional[float] = None
 
     def __post_init__(self):
         """Post-initialization to set up model configurations"""
@@ -260,7 +260,7 @@ class Config:
     log_level: str = "INFO"
     log_dir: Optional[str] = None
     random_seed: Optional[int] = 42
-    language: str = None
+    language: Optional[str] = None
 
     # Component configurations
     llm: LLMConfig = field(default_factory=LLMConfig)
@@ -298,6 +298,16 @@ class Config:
         # Update nested configs
         if "llm" in config_dict:
             llm_dict = config_dict["llm"]
+
+            # Use environment variables if available
+            api_key = os.environ.get("OPENAI_API_KEY")
+            api_base = os.environ.get("OPENAI_API_BASE") or os.environ.get("OPENAI_BASE_URL")
+
+            if llm_dict.get("api_key") is None and api_key is not None:
+                llm_dict["api_key"] = api_key
+            if llm_dict.get("api_base") is None and api_base is not None:
+                llm_dict["api_base"] = api_base
+
             if "models" in llm_dict:
                 llm_dict["models"] = [LLMModelConfig(**m) for m in llm_dict["models"]]
             if "evaluator_models" in llm_dict:
@@ -307,6 +317,7 @@ class Config:
             config.llm = LLMConfig(**llm_dict)
         if "prompt" in config_dict:
             config.prompt = PromptConfig(**config_dict["prompt"])
+            config.llm.update_model_params({"system_message": config.prompt.system_message}, overwrite=False)
         if "database" in config_dict:
             config.database = DatabaseConfig(**config_dict["database"])
 
@@ -398,32 +409,8 @@ class Config:
             yaml.dump(self.to_dict(), f, default_flow_style=False)
 
 
-def load_config(config_path: Optional[Union[str, Path]] = None) -> Config:
+def load_config(config_path: Union[str, Path]) -> Config:
     """Load configuration from a YAML file or use defaults"""
-    if config_path and os.path.exists(config_path):
-        config = Config.from_yaml(config_path)
-    else:
-        config = Config()
-
-        # Use environment variables if available
-    if config.llm.api_key is None:
-        api_key = os.environ.get("OPENAI_API_KEY")
-        config.llm.update_model_params({"api_key": api_key})
-
-    if config.llm.api_base is None:
-        api_base = os.environ.get("OPENAI_API_BASE") or os.environ.get("OPENAI_BASE_URL")
-        if api_base is not None:
-            config.llm.update_model_params({"api_base": api_base})
-
-    # Make the system message available to the individual models, in case it is not provided from the prompt sampler
-    config.llm.update_model_params({"system_message": config.prompt.system_message})
-
-    # print("************ Configuration loaded: ************")
-    # print(f"Using LLM API base: {config.llm.api_base}")
-    # print(f"Using LLM API key: {config.llm.api_key}")
-
-    # import sys
-    # sys.exit(0)  # TEMPORARY
-
+    config = Config.from_yaml(config_path)
 
     return config

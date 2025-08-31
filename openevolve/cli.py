@@ -15,7 +15,7 @@ from openevolve.config import Config, load_config
 logger = logging.getLogger(__name__)
 
 
-def parse_args() -> argparse.Namespace:
+def _parse_args() -> argparse.Namespace:
     """Parse command-line arguments"""
     parser = argparse.ArgumentParser(description="OpenEvolve - Evolutionary coding agent")
 
@@ -39,6 +39,7 @@ def parse_args() -> argparse.Namespace:
 
     parser.add_argument(
         "--checkpoint",
+        "-p",
         help="Path to checkpoint directory to resume from (e.g., openevolve_output/checkpoints/checkpoint_50)",
         default=None,
     )
@@ -46,24 +47,7 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def get_config_overrides(args: argparse.Namespace) -> Dict:
-    """Get configuration overrides from command-line arguments"""
-    overrides = {}
-    if args.api_base:
-        overrides["llm.api_base"] = args.api_base
-    if args.primary_model:
-        overrides["llm.primary_model"] = args.primary_model
-    if args.secondary_model:
-        overrides["llm.secondary_model"] = args.secondary_model
-    if args.iterations is not None:
-        overrides["evolution.iterations"] = args.iterations
-    if args.target_score is not None:
-        overrides["evolution.target_score"] = args.target_score
-    return overrides
-
-
-
-def get_initial_program_path(problem_path: str) -> Optional[str]:
+def _get_initial_program_path(problem_path: str) -> Optional[str]:
     """Get the path to the initial program file"""
     # 任意目录下的 initial_program.* 文件
     for filename in os.listdir(problem_path):
@@ -71,14 +55,14 @@ def get_initial_program_path(problem_path: str) -> Optional[str]:
             return os.path.join(problem_path, filename)
     return None
 
-def get_evaluation_file_path(problem_path: str) -> Optional[str]:
+def _get_evaluation_file_path(problem_path: str) -> Optional[str]:
     """Get the path to the evaluation file"""
     eval_path = os.path.join(problem_path, "evaluator.py")
     if os.path.exists(eval_path):
         return eval_path
     return None
 
-def get_config_file_path(problem_path: str) -> Optional[str]:
+def _get_config_file_path(problem_path: str) -> Optional[str]:
     """Get the path to the configuration file"""
     config_path = os.path.join(problem_path, "config.yaml")
     if os.path.exists(config_path):
@@ -92,63 +76,72 @@ async def main_async() -> int:
     Returns:
         Exit code
     """
-    args = parse_args()
+    args = _parse_args()
 
-    problem = args.problem
+    args_problem = args.problem
 
-    config_file = args.config
-    if config_file is None:
-        config_file = get_config_file_path(problem)
+    args_config = args.config
+    if args_config is None:
+        args_config = _get_config_file_path(args_problem)
+
+    if args_config is None:
+        print(f"Error: Configuration file not found")
+        return 1
 
     # Load base config from file or defaults
-    config = load_config(config_file)
+    config = load_config(args_config)
 
-    initial_program = get_initial_program_path(problem)
+    args_initial_program = _get_initial_program_path(args_problem)
+    args_evaluation_file = _get_evaluation_file_path(args_problem)
 
-    if initial_program is None:
+    args_log_level = args.log_level
+    args_iterations = args.iterations
+    args_target_score = args.target_score
+    args_output = args.output
+    args_checkpoint = args.checkpoint
+
+    #override config with command-line arguments
+    config.log_level = args_log_level or config.log_level
+    config.max_iterations = args_iterations or config.max_iterations
+
+    if args_initial_program is None:
         print(f"Error: Initial program file not found")
         return 1
 
-    evaluation_file = get_evaluation_file_path(problem)
-    if evaluation_file is None:
+    if args_evaluation_file is None:
         print(f"Error: Evaluation file not found")
         return 1
+
+    if args_checkpoint:
+        if not os.path.exists(args_checkpoint):
+            print(f"Error: Checkpoint directory '{args_checkpoint}' not found")
+            return 1
 
     # Initialize OpenEvolve
     try:
         print("************* OpenEvolve Starting ************")
-        print(f"Loading configuration from: {config_file if config_file else 'defaults'}")
-        print(f"Initial program: {initial_program}")
-        print(f"Evaluation file: {evaluation_file}")
+        print(f"Loading configuration from: {args_config}")
+        print(f"Initial program: {args_initial_program}")
+        print(f"Evaluation file: {args_evaluation_file}")
 
         openevolve = OpenEvolve(
-            initial_program_path=initial_program,
-            evaluation_file=evaluation_file,
+            initial_program_path=args_initial_program,
+            evaluation_file=args_evaluation_file,
             config=config,
-            # config_path=config if config is None else None,
-            output_dir=args.output,
+            output_dir=args_output,
         )
 
         # Load from checkpoint if specified
-        if args.checkpoint:
-            if not os.path.exists(args.checkpoint):
-                print(f"Error: Checkpoint directory '{args.checkpoint}' not found")
-                return 1
-            print(f"Loading checkpoint from {args.checkpoint}")
-            openevolve.database.load(args.checkpoint)
-            print(
-                f"Checkpoint loaded successfully (iteration {openevolve.database.last_iteration})"
-            )
-
-        # Override log level if specified
-        if args.log_level:
-            logging.getLogger().setLevel(getattr(logging, args.log_level))
+        if args_checkpoint:
+            print(f"Loading checkpoint from {args_checkpoint}")
+            openevolve.database.load(args_checkpoint)
+            print(f"Checkpoint loaded successfully (iteration {openevolve.database.last_iteration})")    
 
         # Run evolution
         best_program = await openevolve.run(
-            iterations=args.iterations,
-            target_score=args.target_score,
-            checkpoint_path=args.checkpoint,
+            # iterations=args_iterations,
+            target_score=args_target_score,
+            checkpoint_path=args_checkpoint,
         )
 
         # Get the checkpoint path
@@ -165,14 +158,15 @@ async def main_async() -> int:
                     checkpoints, key=lambda x: int(x.split("_")[-1]) if "_" in x else 0
                 )[-1]
 
-        print(f"\nEvolution complete!")
-        print(f"Best program metrics:")
-        for name, value in best_program.metrics.items():
-            # Handle mixed types: format numbers as floats, others as strings
-            if isinstance(value, (int, float)):
-                print(f"  {name}: {value:.4f}")
-            else:
-                print(f"  {name}: {value}")
+        if best_program:
+            print(f"\nEvolution complete!")
+            print(f"Best program metrics:")
+            for name, value in best_program.metrics.items():
+                # Handle mixed types: format numbers as floats, others as strings
+                if isinstance(value, (int, float)):
+                    print(f"  {name}: {value:.4f}")
+                else:
+                    print(f"  {name}: {value}")
 
         if latest_checkpoint:
             print(f"\nLatest checkpoint saved at: {latest_checkpoint}")

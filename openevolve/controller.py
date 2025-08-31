@@ -193,7 +193,6 @@ class OpenEvolve:
 
     async def run(
         self,
-        iterations: Optional[int] = None,
         target_score: Optional[float] = None,
         checkpoint_path: Optional[str] = None,
     ) -> Optional[Program]:
@@ -201,14 +200,13 @@ class OpenEvolve:
         Run the evolution process with improved parallel processing
 
         Args:
-            iterations: Maximum number of iterations (uses config if None)
             target_score: Target score to reach (continues until reached if specified)
             checkpoint_path: Path to resume from checkpoint
 
         Returns:
             Best program found
         """
-        max_iterations = iterations or self.config.max_iterations
+        max_iterations = self.config.max_iterations
 
         # Determine starting iteration
         start_iteration = 0
@@ -240,7 +238,7 @@ class OpenEvolve:
             initial_program = Program(
                 id=initial_program_id,
                 code=self.initial_program_code,
-                language=self.config.language,
+                language=self.config.language or "python", #TODO
                 metrics=initial_metrics,
                 iteration_found=start_iteration,
             )
@@ -258,7 +256,7 @@ class OpenEvolve:
                 if numeric_metrics:
                     avg_score = sum(numeric_metrics) / len(numeric_metrics)
                     logger.warning(
-                        f"⚠️  No 'combined_score' metric found in evaluation results. "
+                        f"No 'combined_score' metric found in evaluation results. " # ⚠️  
                         f"Using average of all numeric metrics ({avg_score:.4f}) for evolution guidance. "
                         f"For better evolution results, please modify your evaluator to return a 'combined_score' "
                         f"metric that properly weights different aspects of program performance."
@@ -278,7 +276,8 @@ class OpenEvolve:
             # Set up signal handlers for graceful shutdown
             def signal_handler(signum, frame):
                 logger.info(f"Received signal {signum}, initiating graceful shutdown...")
-                self.parallel_controller.request_shutdown()
+                if self.parallel_controller:
+                    self.parallel_controller.request_shutdown()
 
                 # Set up a secondary handler for immediate exit if user presses Ctrl+C again
                 def force_exit_handler(signum, frame):
