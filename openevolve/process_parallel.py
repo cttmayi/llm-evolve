@@ -415,6 +415,7 @@ class ProcessParallelController:
             for _ in range(batch_per_island):
                 if current_iteration < total_iterations:
                     future = self._submit_iteration(current_iteration, island_id)
+                    logger.debug(f"Submitted iteration {current_iteration} to island {island_id}")  
                     if future:
                         pending_futures[current_iteration] = future
                         island_pending[island_id].append(current_iteration)
@@ -459,7 +460,7 @@ class ProcessParallelController:
             future = pending_futures.pop(completed_iteration)
 
             try:
-                result = future.result()
+                result:SerializableResult = future.result()
 
                 if result.error:
                     logger.warning(f"Iteration {completed_iteration} error: {result.error}")
@@ -599,7 +600,7 @@ class ProcessParallelController:
                                 logger.debug(f"No improvement: {iterations_without_improvement}/{self.config.early_stopping_patience}")
 
                             # Check if we should stop
-                            if iterations_without_improvement >= self.config.early_stopping_patience:
+                            if iterations_without_improvement >= self.config.early_stopping_patience:  # type: ignore
                                 logger.info(
                                     f"Early stopping triggered at iteration {completed_iteration}: "
                                     f"No improvement for {iterations_without_improvement} iterations "

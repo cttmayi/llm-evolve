@@ -260,7 +260,7 @@ class Config:
     log_level: str = "INFO"
     log_dir: Optional[str] = None
     random_seed: Optional[int] = 42
-    language: Optional[str] = None
+    language: str = "unknown"  # Programming language of the code being evolved
 
     # Component configurations
     llm: LLMConfig = field(default_factory=LLMConfig)

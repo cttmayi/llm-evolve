@@ -180,9 +180,9 @@ class OpenEvolve:
         root_logger.addHandler(file_handler)
 
         # Add console handler
-        console_handler = logging.StreamHandler()
-        console_handler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s - %(message)s"))
-        root_logger.addHandler(console_handler)
+        # console_handler = logging.StreamHandler()
+        # console_handler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s - %(message)s"))
+        # root_logger.addHandler(console_handler)
 
         logger.info(f"Logging to {log_file}")
 
@@ -238,7 +238,7 @@ class OpenEvolve:
             initial_program = Program(
                 id=initial_program_id,
                 code=self.initial_program_code,
-                language=self.config.language or "python", #TODO
+                language=self.config.language,
                 metrics=initial_metrics,
                 iteration_found=start_iteration,
             )
@@ -261,6 +261,10 @@ class OpenEvolve:
                         f"For better evolution results, please modify your evaluator to return a 'combined_score' "
                         f"metric that properly weights different aspects of program performance."
                     )
+                    print(" No 'combined_score' metric found in evaluation results.")
+                    import sys
+                    sys.exit(1)
+
         else:
             logger.info(
                 f"Skipping initial program addition (resuming from iteration {start_iteration} "
@@ -457,14 +461,19 @@ class OpenEvolve:
         logger.info(f"Using island-based evolution with {self.config.database.num_islands} islands")
         self.database.log_island_status()
 
-        # Run the evolution process with checkpoint callback
-        await self.parallel_controller.run_evolution(
-            start_iteration, max_iterations, target_score, checkpoint_callback=self._save_checkpoint
-        )
 
-        # Check if shutdown was requested
-        if self.parallel_controller.shutdown_event.is_set():
-            logger.info("Evolution stopped due to shutdown request")
+        if self.parallel_controller :
+            # Run the evolution process with checkpoint callback
+            await self.parallel_controller.run_evolution(
+                start_iteration, max_iterations, target_score, checkpoint_callback=self._save_checkpoint
+            )
+
+            # Check if shutdown was requested
+            if self.parallel_controller.shutdown_event.is_set():
+                logger.info("Evolution stopped due to shutdown request")
+                return
+        else:
+            logger.error("Parallel controller is not initialized. Cannot run evolution.")
             return
 
         # Save final checkpoint if needed
