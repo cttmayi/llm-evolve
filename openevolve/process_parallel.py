@@ -533,7 +533,7 @@ class ProcessParallelController:
                         ):
                             avg_score = safe_numeric_average(child_program.metrics)
                             logger.warning(
-                                f"⚠️  No 'combined_score' metric found in evaluation results. "
+                                f"No 'combined_score' metric found in evaluation results. " # ⚠️  
                                 f"Using average of all numeric metrics ({avg_score:.4f}) for evolution guidance. "
                                 f"For better evolution results, please modify your evaluator to return a 'combined_score' "
                                 f"metric that properly weights different aspects of program performance."
@@ -543,7 +543,7 @@ class ProcessParallelController:
                     # Check for new best
                     if self.database.best_program_id == child_program.id:
                         logger.info(
-                            f"🌟 New best solution found at iteration {completed_iteration}: "
+                            f"New best solution found at iteration {completed_iteration}: " # 🌟 
                             f"{child_program.id}"
                         )
 
