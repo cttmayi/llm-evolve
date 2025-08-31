@@ -411,7 +411,7 @@ def load_config(config_path: Optional[Union[str, Path]] = None) -> Config:
         config.llm.update_model_params({"api_key": api_key})
 
     if config.llm.api_base is None:
-        api_base = os.environ.get("OPENAI_API_BASE")
+        api_base = os.environ.get("OPENAI_API_BASE") or os.environ.get("OPENAI_BASE_URL")
         if api_base is not None:
             config.llm.update_model_params({"api_base": api_base})
 
