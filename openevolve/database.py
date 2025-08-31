@@ -533,7 +533,7 @@ class ProgramDatabase:
         metadata_path = os.path.join(path, "metadata.json")
         saved_islands = []
         if os.path.exists(metadata_path):
-            with open(metadata_path, "r") as f:
+            with open(metadata_path, "r", encoding="utf-8") as f:
                 metadata = json.load(f)
 
             self.feature_map = metadata.get("feature_map", {})
@@ -562,7 +562,7 @@ class ProgramDatabase:
                 if program_file.endswith(".json"):
                     program_path = os.path.join(programs_dir, program_file)
                     try:
-                        with open(program_path, "r") as f:
+                        with open(program_path, "r", encoding="utf-8") as f:
                             program_data = json.load(f)
 
                         program = Program.from_dict(program_data)
