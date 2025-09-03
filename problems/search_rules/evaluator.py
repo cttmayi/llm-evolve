@@ -8,29 +8,10 @@ import time
 import concurrent.futures
 import traceback
 import signal
-from openevolve.evaluation_result import EvaluationResult
+# from openevolve.evaluation_result import EvaluationResult
+from openevolve.helper import EvaluationResult
 
-
-def run_with_timeout(func, args=(), kwargs={}, timeout_seconds=5):
-    """
-    Run a function with a timeout using concurrent.futures
-
-    Args:
-        func: Function to run
-        args: Arguments to pass to the function
-        kwargs: Keyword arguments to pass to the function
-        timeout_seconds: Timeout in seconds
-
-    Returns:
-        Result of the function or raises TimeoutError
-    """
-    with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
-        future = executor.submit(func, *args, **kwargs)
-        try:
-            result = future.result(timeout=timeout_seconds)
-            return result
-        except concurrent.futures.TimeoutError:
-            raise TimeoutError(f"Function timed out after {timeout_seconds} seconds")
+from openevolve.helper.executor import run_python_with_timeout, import_python_program
 
 
 
@@ -163,7 +144,7 @@ def evaluate(program_path):
 
     try:
         # Load the program
-        program = get_program(program_path)
+        program = import_python_program(program_path)
 
         # Check if the required function exists
         if not hasattr(program, "search_algorithm"):
@@ -201,7 +182,7 @@ def evaluate(program_path):
                 start_time = time.time()
 
                 # Run with timeout
-                result = run_with_timeout(program.search_algorithm, kwargs={'input_data': input_data}, timeout_seconds=5) # type: ignore
+                result = run_python_with_timeout(program.search_algorithm, kwargs={'input_data': input_data}, timeout_seconds=5) # type: ignore
 
                 # Handle different result formats
                 if not isinstance(result, bool):
