@@ -177,8 +177,8 @@ class Evaluator:
 
                     self._pending_artifacts[program_id].update(
                         {
-                            "timeout": True,
-                            "timeout_duration": self.config.timeout,
+                            "timeout": str(True),
+                            "timeout_duration": str(self.config.timeout),
                             "failure_stage": "evaluation",
                             "error_type": "timeout",
                         }
@@ -192,6 +192,7 @@ class Evaluator:
 
                     # Combine metrics
                     llm_scores = []
+
                     for name, value in llm_result.metrics.items():
                         weighted_value = value * self.config.llm_feedback_weight
                         eval_result.metrics[f"llm_{name}"] = weighted_value
@@ -564,6 +565,7 @@ class Evaluator:
         try:
             # Create prompt for LLM
             feature_dimensions = self.database.config.feature_dimensions if self.database else []
+            assert self.prompt_sampler
             prompt = self.prompt_sampler.build_prompt(
                 current_program=program_code, template_key="evaluation", feature_dimensions=feature_dimensions
             )

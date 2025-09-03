@@ -83,7 +83,7 @@ class LLMEnsemble:
 
     async def generate_all_with_context(
         self, system_message: str, messages: List[Dict[str, str]], **kwargs
-    ) -> str:
+    ) -> list[str]:
         """Generate text using a all available models and average their returned metrics"""
         responses = []
         for model in self.models:
