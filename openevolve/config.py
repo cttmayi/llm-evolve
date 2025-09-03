@@ -127,8 +127,8 @@ class PromptConfig:
     """Configuration for prompt generation"""
 
     template_dir: Optional[str] = None
-    system_message: str = "system_message"
-    evaluator_system_message: str = "evaluator_system_message"
+    # system_message: str = "system_message"
+    # evaluator_system_message: str = "evaluator_system_message"
 
     # Number of examples to include in the prompt
     num_top_programs: int = 3
@@ -296,7 +296,7 @@ class Config:
                 setattr(config, key, value)
 
         # Update nested configs
-        if "llm" in config_dict:
+        if "llm" in config_dict and config_dict["llm"] is not None:
             llm_dict = config_dict["llm"]
 
             # Use environment variables if available
@@ -315,16 +315,16 @@ class Config:
                     LLMModelConfig(**m) for m in llm_dict["evaluator_models"]
                 ]
             config.llm = LLMConfig(**llm_dict)
-        if "prompt" in config_dict:
+        if "prompt" in config_dict and config_dict["prompt"] is not None:
             config.prompt = PromptConfig(**config_dict["prompt"])
-            config.llm.update_model_params({"system_message": config.prompt.system_message}, overwrite=False)
-        if "database" in config_dict:
+            # config.llm.update_model_params({"system_message": config.prompt.system_message}, overwrite=False)
+        if "database" in config_dict and config_dict["database"] is not None:
             config.database = DatabaseConfig(**config_dict["database"])
 
         # Ensure database inherits the random seed if not explicitly set
         if config.database.random_seed is None and config.random_seed is not None:
             config.database.random_seed = config.random_seed
-        if "evaluator" in config_dict:
+        if "evaluator" in config_dict and config_dict["evaluator"] is not None:
             config.evaluator = EvaluatorConfig(**config_dict["evaluator"])
 
         return config
@@ -352,8 +352,8 @@ class Config:
             },
             "prompt": {
                 "template_dir": self.prompt.template_dir,
-                "system_message": self.prompt.system_message,
-                "evaluator_system_message": self.prompt.evaluator_system_message,
+                # "system_message": self.prompt.system_message,
+                # "evaluator_system_message": self.prompt.evaluator_system_message,
                 "num_top_programs": self.prompt.num_top_programs,
                 "num_diverse_programs": self.prompt.num_diverse_programs,
                 "use_template_stochasticity": self.prompt.use_template_stochasticity,

@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 class PromptSampler:
     """Generates prompts for code evolution"""
 
-    def __init__(self, config: PromptConfig):
+    def __init__(self, config: PromptConfig, system_template: str = "system_message", user_template: Optional[str] = None):
         self.config = config
         self.template_manager = TemplateManager(custom_template_dir=config.template_dir)
 
@@ -25,7 +25,7 @@ class PromptSampler:
         random.seed()
 
         # Store custom template mappings
-        self.system_template_override = None
+        self.system_template = system_template
         self.user_template_override = None
 
         # Only log once to reduce duplication
@@ -33,19 +33,19 @@ class PromptSampler:
             logger.info("Initialized prompt sampler")
             logger._prompt_sampler_logged = True
 
-    def set_templates(
-        self, system_template: Optional[str] = None, user_template: Optional[str] = None
-    ) -> None:
-        """
-        Set custom templates to use for this sampler
+    # def set_templates(
+    #     self, system_template: Optional[str] = None, user_template: Optional[str] = None
+    # ) -> None:
+    #     """
+    #     Set custom templates to use for this sampler
 
-        Args:
-            system_template: Template name for system message
-            user_template: Template name for user message
-        """
-        self.system_template_override = system_template
-        self.user_template_override = user_template
-        logger.info(f"Set custom templates: system={system_template}, user={user_template}")
+    #     Args:
+    #         system_template: Template name for system message
+    #         user_template: Template name for user message
+    #     """
+    #     self.system_template_override = system_template
+    #     self.user_template_override = user_template
+    #     logger.info(f"Set custom templates: system={system_template}, user={user_template}")
 
     def build_prompt(
         self,
@@ -98,13 +98,13 @@ class PromptSampler:
         user_template = self.template_manager.get_template(user_template_key)
 
         # Use system template override if set
-        if self.system_template_override:
-            system_message = self.template_manager.get_template(self.system_template_override)
-        else:
-            system_message = self.config.system_message
-            # If system_message is a template name rather than content, get the template
-            if system_message in self.template_manager.templates:
-                system_message = self.template_manager.get_template(system_message)
+        # if self.system_template:
+        system_message = self.template_manager.get_template(self.system_template)
+        # else:
+        #     system_message = self.config.system_message
+        #     # If system_message is a template name rather than content, get the template
+        #     if system_message in self.template_manager.templates:
+        #         system_message = self.template_manager.get_template(system_message)
 
         # Format metrics
         metrics_str = self._format_metrics(program_metrics)

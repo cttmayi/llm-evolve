@@ -15,7 +15,6 @@ llm:
 
 # Prompt configuration
 prompt:
-  system_message: "你是一位优秀的数据专家.你的任务是从数据中寻找规律, 编写代码, 判断数据是否有正常. 返回 True 表示正常, 返回 False 表示不正常. 注意: 你只能看到正常数据, 所有请尽力总结正常规律, 这样有利于发现异常,从而获得更高的分数"
 
 # Database configuration
 database:

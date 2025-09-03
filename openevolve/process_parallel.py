@@ -111,8 +111,8 @@ def _lazy_init_worker_components():
 
         # Create evaluator-specific components
         evaluator_llm = LLMEnsemble(_worker_config.llm.evaluator_models)
-        evaluator_prompt = PromptSampler(_worker_config.prompt)
-        evaluator_prompt.set_templates("evaluator_system_message")
+        evaluator_prompt = PromptSampler(_worker_config.prompt, "evaluator_system_message")
+        # evaluator_prompt.set_templates("evaluator_system_message")
 
         _worker_evaluator = Evaluator(
             _worker_config.evaluator,

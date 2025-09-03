@@ -69,6 +69,15 @@ def _get_config_file_path(problem_path: str) -> Optional[str]:
         return config_path
     return None
 
+def _get_prompt_dir_path(problem_path: str) -> Optional[str]:
+    """Get the path to the prompt directory"""
+    prompt_path = os.path.join(problem_path, "prompts")
+    if os.path.exists(prompt_path) and os.path.isdir(prompt_path):
+        return prompt_path
+    return None
+    
+
+
 async def main_async() -> int:
     """
     Main asynchronous entry point
@@ -103,6 +112,7 @@ async def main_async() -> int:
     #override config with command-line arguments
     config.log_level = args_log_level or config.log_level
     config.max_iterations = args_iterations or config.max_iterations
+    config.prompt.template_dir = config.prompt.template_dir or _get_prompt_dir_path(args_problem)
 
     if args_initial_program is None:
         print(f"Error: Initial program file not found")
