@@ -1,6 +1,9 @@
 # EVOLVE-BLOCK-START
 """Function minimization example for OpenEvolve"""
 import numpy as np
+from utils.init import init
+
+init()
 
 
 def search_algorithm(input_data: dict) -> bool:

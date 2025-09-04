@@ -77,7 +77,6 @@ def _get_prompt_dir_path(problem_path: str) -> Optional[str]:
     return None
     
 
-
 async def main_async() -> int:
     """
     Main asynchronous entry point
