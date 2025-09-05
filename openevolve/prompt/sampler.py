@@ -19,7 +19,9 @@ class PromptSampler:
 
     def __init__(self, config: PromptConfig, system_template: str = "system_message", user_template: Optional[str] = None):
         self.config = config
-        self.template_manager = TemplateManager(custom_template_dir=config.template_dir)
+        self.template_manager = TemplateManager(custom_template_dir=config.template_dir,
+                                                system_message=config.system_message,
+                                                evaluator_system_message=config.evaluator_system_message)
 
         # Initialize the random number generator
         random.seed()

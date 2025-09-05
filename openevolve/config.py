@@ -45,7 +45,7 @@ class LLMConfig(LLMModelConfig):
     api_base: Optional[str] = None
 
     # Generation parameters
-    system_message: Optional[str] = "system_message"
+    system_message: Optional[str] = None
     temperature: float = 0.7
     top_p: float = 0.95
     max_tokens: int = 4096
@@ -127,8 +127,8 @@ class PromptConfig:
     """Configuration for prompt generation"""
 
     template_dir: Optional[str] = None
-    # system_message: str = "system_message"
-    # evaluator_system_message: str = "evaluator_system_message"
+    system_message: Optional[str] = None
+    evaluator_system_message: Optional[str] = None
 
     # Number of examples to include in the prompt
     num_top_programs: int = 3
@@ -352,8 +352,8 @@ class Config:
             },
             "prompt": {
                 "template_dir": self.prompt.template_dir,
-                # "system_message": self.prompt.system_message,
-                # "evaluator_system_message": self.prompt.evaluator_system_message,
+                "system_message": self.prompt.system_message,
+                "evaluator_system_message": self.prompt.evaluator_system_message,
                 "num_top_programs": self.prompt.num_top_programs,
                 "num_diverse_programs": self.prompt.num_diverse_programs,
                 "use_template_stochasticity": self.prompt.use_template_stochasticity,

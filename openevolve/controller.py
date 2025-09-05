@@ -195,6 +195,7 @@ class OpenEvolve:
         self,
         target_score: Optional[float] = None,
         checkpoint_path: Optional[str] = None,
+        iterations: Optional[int] = None,
     ) -> Optional[Program]:
         """
         Run the evolution process with improved parallel processing
@@ -206,7 +207,7 @@ class OpenEvolve:
         Returns:
             Best program found
         """
-        max_iterations = self.config.max_iterations
+        max_iterations = iterations or self.config.max_iterations
 
         # Determine starting iteration
         start_iteration = 0

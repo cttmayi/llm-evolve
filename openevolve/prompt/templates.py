@@ -172,7 +172,8 @@ from typing import Dict, List, Optional, Union, Any
 class TemplateManager:
     """Manages templates with cascading override support"""
 
-    def __init__(self, custom_template_dir: Optional[str] = None):
+    def __init__(self, custom_template_dir: Optional[str] = None,
+                 system_message: Optional[str] = None, evaluator_system_message: Optional[str] = None):
         # Get default template directory
         self.default_dir = Path(__file__).parent.parent / "prompts" / "defaults"
         self.custom_dir = Path(custom_template_dir) if custom_template_dir else None
@@ -187,6 +188,12 @@ class TemplateManager:
         # 2. Override with custom templates (if provided)
         if self.custom_dir and self.custom_dir.exists():
             self._load_from_directory(self.custom_dir)
+
+        # 3. Override with provided templates (if provided)
+        if system_message:
+            self.templates["system_message"] = system_message
+        if evaluator_system_message:
+            self.templates["evaluator_system_message"] = evaluator_system_message
 
     def _load_from_directory(self, directory: Path) -> None:
         """Load all templates and fragments from a directory"""
