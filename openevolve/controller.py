@@ -169,20 +169,26 @@ class OpenEvolve:
 
         # Set up root logger
         root_logger = logging.getLogger()
-        root_logger.setLevel(getattr(logging, self.config.log_level))
+        for h in root_logger.handlers:
+            # print(type(h), h.level, h)
+            root_logger.removeHandler(h) #TODO remove all other stream
+        logging.basicConfig(handlers=[logging.NullHandler()])
+
+        # root_logger.setLevel(getattr(logging, self.config.log_level))
+        root_logger.setLevel(level=logging.DEBUG)
 
         # Add file handler
         log_file = os.path.join(log_dir, f"openevolve_{time.strftime('%Y%m%d_%H%M%S')}.log")
         file_handler = logging.FileHandler(log_file)
-        file_handler.setFormatter(
-            logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-        )
+        file_handler.setFormatter(logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s"))
+        file_handler.setLevel(level=logging.DEBUG)
         root_logger.addHandler(file_handler)
 
         # Add console handler
-        # console_handler = logging.StreamHandler()
-        # console_handler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s - %(message)s"))
-        # root_logger.addHandler(console_handler)
+        console_handler = logging.StreamHandler()
+        console_handler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s - %(message)s"))
+        console_handler.setLevel(getattr(logging, self.config.log_level))
+        root_logger.addHandler(console_handler)
 
         logger.info(f"Logging to {log_file}")
 

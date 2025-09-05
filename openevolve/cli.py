@@ -30,17 +30,12 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--target-score", "-t", help="Target score to reach", type=float, default=None)
 
     parser.add_argument(
-        "--log-level",
-        "-l",
-        help="Logging level",
-        choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
-        default=None,
+        "--log-level", "-l", help="Logging level",
+        choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"], default=None,
     )
 
     parser.add_argument(
-        "--checkpoint",
-        "-p",
-        help="Path to checkpoint directory to resume from (e.g., openevolve_output/checkpoints/checkpoint_50)",
+        "--checkpoint", "-p", help="Path to checkpoint directory to resume from (e.g., openevolve_output/checkpoints/checkpoint_50)",
         default=None,
     )
 
