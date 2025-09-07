@@ -1,0 +1,18 @@
+{
+  "fitness_improved": "适应度提升: {prev:.4f} → {current:.4f}",
+  "fitness_declined": "适应度下降: {prev:.4f} → {current:.4f}. 考虑修改最近的更改。",
+  "fitness_stable": "适应度保持在 {current:.4f} 不变",
+  "exploring_region": "探索解决方案空间的 {features} 区域",
+  "metrics_label": "指标: {metrics}",
+  "outcome_all_improved": "所有指标都有所改善",
+  "outcome_all_regressed": "所有指标都有所下降",
+  "outcome_mixed": "结果好坏参半",
+  "outcome_fitness_improved": "适应度提升（探索新特征）",
+  "key_features_prefix": "在以下方面表现强劲",
+  "code_too_long": "考虑简化 - 代码长度超过 {threshold} 个字符",
+  "no_specific_guidance": "专注于在保持多样性的同时提升适应度",
+  "metrics_improved": "显示改进的指标: {metrics}. 考虑继续使用类似的方法。",
+  "metrics_regressed": "显示变化的指标: {metrics}. 考虑在这些领域采用不同的方法。",
+  "code_simplification": "考虑简化代码以提高可读性和可维护性",
+  "default_improvement": "专注于在探索多样化解决方案的同时提升适应度分数"
+}

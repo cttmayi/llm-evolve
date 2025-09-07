@@ -175,7 +175,8 @@ class TemplateManager:
     def __init__(self, custom_template_dir: Optional[str] = None,
                  system_message: Optional[str] = None, evaluator_system_message: Optional[str] = None):
         # Get default template directory
-        self.default_dir = Path(__file__).parent.parent / "prompts" / "defaults"
+        default_language = "cn"
+        self.default_dir = Path(__file__).parent.parent / "prompts" / default_language
         self.custom_dir = Path(custom_template_dir) if custom_template_dir else None
         
         # Load templates with cascading priority

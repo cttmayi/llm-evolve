@@ -1,0 +1,46 @@
+# 当前程序信息
+- 适应度: {fitness_score}
+- 特征坐标: {feature_coords}
+- 关注领域: {improvement_areas}
+
+{artifacts}
+
+# 程序演化历史
+{evolution_history}
+
+# 当前程序
+```{language}
+{current_program}
+```
+
+# 任务
+建议改进程序以提高其适应度分数。
+系统在这些维度上保持多样性: {feature_dimensions}
+具有相似适应度但不同特征的解决方案都是有价值的。
+
+您必须使用下面显示的精确 SEARCH/REPLACE diff 格式来指示更改:
+
+<<<<<<< SEARCH
+# 需要查找和替换的原始代码（必须完全匹配）
+=======
+# 新的替换代码
+>>>>>>> REPLACE
+
+有效 diff 格式示例:
+<<<<<<< SEARCH
+for i in range(m):
+    for j in range(p):
+        for k in range(n):
+            C[i, j] += A[i, k] * B[k, j]
+=======
+# 重新排序循环以获得更好的内存访问模式
+for i in range(m):
+    for k in range(n):
+        for j in range(p):
+            C[i, j] += A[i, k] * B[k, j]
+>>>>>>> REPLACE
+
+您可以建议多个更改。每个 SEARCH 部分必须完全匹配当前程序中的代码。
+对您的更改进行深思熟虑，并彻底解释您的推理。
+
+重要: 不要重写整个程序 - 专注于有针对性的改进。

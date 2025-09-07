@@ -1,0 +1,4 @@
+### 尝试 {attempt_number}
+- 更改: {changes}
+- 指标: {performance}
+- 结果: {outcome}

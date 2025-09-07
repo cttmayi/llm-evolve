@@ -1,0 +1,9 @@
+## 之前的尝试
+
+{previous_attempts}
+
+## 表现最佳的程序
+
+{top_programs}
+
+{inspirations_section}

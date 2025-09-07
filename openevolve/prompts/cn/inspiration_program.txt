@@ -1,0 +1,5 @@
+### 灵感程序 {program_number} (分数: {score}, 类型: {program_type})
+```{language}
+{program_snippet}
+```
+独特方法: {unique_features}

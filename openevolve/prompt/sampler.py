@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 class PromptSampler:
     """Generates prompts for code evolution"""
 
-    def __init__(self, config: PromptConfig, system_template: str = "system_message", user_template: Optional[str] = None):
+    def __init__(self, config: PromptConfig, system_template: str = "system_message"):
         self.config = config
         self.template_manager = TemplateManager(custom_template_dir=config.template_dir,
                                                 system_message=config.system_message,
@@ -30,24 +30,7 @@ class PromptSampler:
         self.system_template = system_template
         self.user_template_override = None
 
-        # Only log once to reduce duplication
-        # if not hasattr(logger, "_prompt_sampler_logged"):
-        #     logger.info("Initialized prompt sampler")
-        #     logger._prompt_sampler_logged = True
 
-    # def set_templates(
-    #     self, system_template: Optional[str] = None, user_template: Optional[str] = None
-    # ) -> None:
-    #     """
-    #     Set custom templates to use for this sampler
-
-    #     Args:
-    #         system_template: Template name for system message
-    #         user_template: Template name for user message
-    #     """
-    #     self.system_template_override = system_template
-    #     self.user_template_override = user_template
-    #     logger.info(f"Set custom templates: system={system_template}, user={user_template}")
 
     def build_prompt(
         self,

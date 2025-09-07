@@ -1,0 +1,5 @@
+### 程序 {program_number} (分数: {score})
+```{language}
+{program_snippet}
+```
+关键特征: {key_features}

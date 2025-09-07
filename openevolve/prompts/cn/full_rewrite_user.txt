@@ -1,0 +1,27 @@
+# 当前程序信息
+- 适应度: {fitness_score}
+- 特征坐标: {feature_coords}
+- 关注领域: {improvement_areas}
+
+{artifacts}
+
+# 程序演化历史
+{evolution_history}
+
+# 当前程序
+```{language}
+{current_program}
+```
+
+# 任务
+重写程序以提高其适应度分数。
+系统在这些维度上保持多样性: {feature_dimensions}
+具有相似适应度但不同特征的解决方案都是有价值的。
+提供完整的新程序代码。
+
+重要: 确保您重写的程序保持与原始程序相同的输入和输出，
+但内部实现有所改进。
+
+```{language}
+# 您重写的程序在这里
+```
