@@ -20,7 +20,7 @@ from llm_evolve.utils.code_utils import (
 
 @dataclass
 class Result:
-    """Resulting program and metrics from an iteration of OpenEvolve"""
+    """Resulting program and metrics from an iteration"""
 
     child_program: str = None
     parent: str = None

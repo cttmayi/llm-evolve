@@ -1,10 +1,10 @@
-# OpenEvolve 示例
+# 示例
 
-本目录包含一系列示例，演示如何使用 OpenEvolve 进行各种任务，包括优化、算法发现和代码进化。每个示例展示了 OpenEvolve 功能的不同方面，并为创建您自己的进化编码项目提供模板。
+本目录包含一系列示例，演示如何使用 llmEvolve 进行各种任务，包括优化、算法发现和代码进化。每个示例展示了 llmEvolve 功能的不同方面，并为创建您自己的进化编码项目提供模板。
 
 ## 快速开始模板
 
-要创建您自己的 OpenEvolve 示例，需要三个基本组件：
+要创建您自己的 llmEvolve 示例，需要三个基本组件：
 
 ### 1. 初始程序 (`initial_program.py`)
 
@@ -14,13 +14,13 @@
 # EVOLVE-BLOCK-START
 def your_function():
     # 您的初始实现放在这里
-    # 这是 OpenEvolve 将修改的唯一部分
+    # 这是 llmEvolve 将修改的唯一部分
     pass
 # EVOLVE-BLOCK-END
 
 # 帮助函数和其他在进化块外的代码
 def helper_function():
-    # 这部分代码不会被 OpenEvolve 修改
+    # 这部分代码不会被 llmEvolve 修改
     pass
 ```
 
@@ -61,7 +61,7 @@ def evaluate(program_path: str) -> Dict:
 
 **关键要求：**
 - ✅ **返回字典**，而不是 `EvaluationResult` 对象
-- ✅ **必须包含 `'combined_score'`** - 这是 OpenEvolve 使用的主要指标
+- ✅ **必须包含 `'combined_score'`** - 这是 llmEvolve 使用的主要指标
 - ✅ 更高的 `combined_score` 值应该表示更好的程序
 - ✅ 优雅地处理异常并在失败时返回 `combined_score: 0.0`
 
@@ -172,7 +172,7 @@ def evaluate(program_path: str) -> Dict:
 ```
 
 ### 为什么这很重要
-- OpenEvolve 内部使用 min-max 缩放
+- llmEvolve 内部使用 min-max 缩放
 - 分箱索引会被错误地缩放，就好像它们是原始值一样
 - 随着新程序改变最小/最大范围，网格位置变得不稳定
 - 这违反了 MAP-Elites 原则并导致进化效果不佳
@@ -187,16 +187,13 @@ def evaluate(program_path: str) -> Dict:
 
 ```bash
 # 基本运行
-python openevolve-run.py path/to/initial_program.py path/to/evaluator.py --config path/to/config.yaml --iterations 100
+python main.py path/to/initial_program.py path/to/evaluator.py --config path/to/config.yaml --iterations 100
 
 # 从检查点恢复
-python openevolve-run.py path/to/initial_program.py path/to/evaluator.py \
+python main.py path/to/initial_program.py path/to/evaluator.py \
   --config path/to/config.yaml \
   --checkpoint path/to/checkpoint_directory \
   --iterations 50
-
-# 查看结果
-python scripts/visualizer.py --path path/to/openevolve_output/checkpoints/checkpoint_100/
 ```
 
 ## 高级配置选项
@@ -237,7 +234,7 @@ evaluator:
 **关键教训：** 展示优化算法的自动发现  
 ```bash
 cd examples/function_minimization
-python ../../openevolve-run.py initial_program.py evaluator.py --config config.yaml
+python main.py initial_program.py evaluator.py --config config.yaml
 ```
 
 #### [圆形填充](circle_packing/)
@@ -246,7 +243,7 @@ python ../../openevolve-run.py initial_program.py evaluator.py --config config.y
 **关键教训：** 演示从几何启发式到数学优化的进化  
 ```bash
 cd examples/circle_packing
-python ../../openevolve-run.py initial_program.py evaluator.py --config config_phase_1.yaml
+python main.py initial_program.py evaluator.py --config config_phase_1.yaml
 ```
 
 ### 🔧 算法发现
@@ -257,7 +254,7 @@ python ../../openevolve-run.py initial_program.py evaluator.py --config config_p
 **关键教训：** 展示特定领域算法的进化  
 ```bash
 cd examples/signal_processing
-python ../../openevolve-run.py initial_program.py evaluator.py --config config.yaml
+python main.py initial_program.py evaluator.py --config config.yaml
 ```
 
 #### [Rust 自适应排序](rust_adaptive_sort/)
@@ -266,7 +263,7 @@ python ../../openevolve-run.py initial_program.py evaluator.py --config config.y
 **关键教训：** 多语言支持（Rust）和算法适应  
 ```bash
 cd examples/rust_adaptive_sort
-python ../../openevolve-run.py initial_program.rs evaluator.py --config config.yaml
+python main.py initial_program.rs evaluator.py --config config.yaml
 ```
 
 ### 🚀 性能优化
@@ -277,7 +274,7 @@ python ../../openevolve-run.py initial_program.rs evaluator.py --config config.y
 **关键教训：** 硬件特定优化和性能调优  
 ```bash
 cd examples/mlx_metal_kernel_opt
-python ../../openevolve-run.py initial_program.py evaluator.py --config config.yaml
+python main.py initial_program.py evaluator.py --config config.yaml
 ```
 
 ### 🌐 Web 和数据处理
@@ -288,7 +285,7 @@ python ../../openevolve-run.py initial_program.py evaluator.py --config config.y
 **关键教训：** 展示与 LLM 代理系统和测试时计算的集成  
 ```bash
 cd examples/web_scraper_optillm
-python ../../openevolve-run.py initial_program.py evaluator.py --config config.yaml
+python main.py initial_program.py evaluator.py --config config.yaml
 ```
 
 ### 💻 编程挑战
@@ -299,7 +296,7 @@ python ../../openevolve-run.py initial_program.py evaluator.py --config config.y
 **关键教训：** 与外部评估系统的集成  
 ```bash
 cd examples/online_judge_programming
-python ../../openevolve-run.py initial_program.py evaluator.py --config config.yaml
+python main.py initial_program.py evaluator.py --config config.yaml
 ```
 
 ### 📊 机器学习和 AI
@@ -310,7 +307,7 @@ python ../../openevolve-run.py initial_program.py evaluator.py --config config.y
 **关键教训：** 自我改进的 AI 系统和提示进化  
 ```bash
 cd examples/llm_prompt_optimazation
-python ../../openevolve-run.py initial_prompt.txt evaluator.py --config config.yaml
+python main.py initial_prompt.txt evaluator.py --config config.yaml
 ```
 
 #### [LM-Eval 集成](lm_eval/)
@@ -331,7 +328,7 @@ python ../../openevolve-run.py initial_prompt.txt evaluator.py --config config.y
 **关键教训：** 多语言支持（R）和统计算法进化  
 ```bash
 cd examples/r_robust_regression
-python ../../openevolve-run.py initial_program.r evaluator.py --config config.yaml
+python main.py initial_program.r evaluator.py --config config.yaml
 ```
 
 ### 🎯 高级功能
@@ -342,7 +339,7 @@ python ../../openevolve-run.py initial_program.r evaluator.py --config config.ya
 **关键教训：** 使用 OpenEvolve 的工件系统进行详细分析  
 ```bash
 cd examples/circle_packing_with_artifacts
-python ../../openevolve-run.py initial_program.py evaluator.py --config config_phase_1.yaml
+python main.py initial_program.py evaluator.py --config config_phase_1.yaml
 ```
 
 ## 最佳实践
@@ -366,15 +363,7 @@ python ../../openevolve-run.py initial_program.py evaluator.py --config config_p
 - 监控进度并根据需要调整配置
 
 ### 🐛 调试
-- 在 `openevolve_output/logs/` 中检查日志
+- 在 `evolve_output/logs/` 中检查日志
 - 在检查点目录中检查失败的程序
 - 使用工件了解程序行为
 - 在进化前独立测试您的评估器
-
-## 获取帮助
-
-- 📖 查看各个示例 README 以获取详细演练
-- 🔍 查看主 [OpenEvolve 文档](../README.md)
-- 💬 在 [GitHub 仓库](https://github.com/codelion/openevolve) 上打开问题
-
-每个示例都是自包含的，包含入门所需的所有必要文件。选择一个与您的用例相似的示例，并使其适应您的特定问题！

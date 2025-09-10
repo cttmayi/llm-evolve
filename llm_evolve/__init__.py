@@ -1,5 +1,5 @@
 """
-OpenEvolve: An open-source implementation of AlphaEvolve
+llmEvolve: An open-source implementation of AlphaEvolve
 """
 
 from llm_evolve._version import __version__

@@ -165,7 +165,7 @@ def evaluate(program_path):
         controller._save_checkpoint = lambda i: checkpoint_calls.append(i) or original_save(i)
 
         # Mock LLM
-        with patch("openevolve.llm.ensemble.LLMEnsemble.generate_with_context") as mock_llm:
+        with patch("llm_evolve.llm.ensemble.LLMEnsemble.generate_with_context") as mock_llm:
             mock_llm.return_value = """```python
 # EVOLVE-BLOCK-START
 def compute(x):

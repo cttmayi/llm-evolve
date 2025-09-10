@@ -1,5 +1,5 @@
 """
-Tests for island migration functionality in openevolve.database
+Tests for island migration functionality in database
 """
 
 import unittest

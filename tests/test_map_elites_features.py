@@ -1,5 +1,5 @@
 """
-Tests for MAP-Elites feature enhancements in openevolve.database
+Tests for MAP-Elites feature enhancements in database
 """
 
 import unittest

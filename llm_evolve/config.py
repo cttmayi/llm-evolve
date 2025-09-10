@@ -1,5 +1,5 @@
 """
-Configuration handling for OpenEvolve
+Configuration handling for llmEvolve
 """
 
 import os
@@ -201,7 +201,7 @@ class DatabaseConfig:
                    "Built-in dimensions: 'complexity', 'diversity', 'score'. "
                    "Custom dimensions: Must match metric names from evaluator. "
                    "IMPORTANT: Evaluators must return raw continuous values for custom dimensions, "
-                   "NOT pre-computed bin indices. OpenEvolve handles all scaling and binning internally."
+                   "NOT pre-computed bin indices. Evolve handles all scaling and binning internally."
         }
     )
     feature_bins: Union[int, Dict[str, int]] = 10  # Can be int (all dims) or dict (per-dim)
@@ -252,7 +252,7 @@ class EvaluatorConfig:
 
 @dataclass
 class Config:
-    """Master configuration for OpenEvolve"""
+    """Master configuration for llmEvolve"""
 
     # General settings
     max_iterations: int = 10000

@@ -287,7 +287,7 @@ class TestFeatureStatsPersistence(unittest.TestCase):
             }
         }
         
-        with patch('openevolve.database.logger') as mock_logger:
+        with patch('llm_evolve.database.logger') as mock_logger:
             deserialized = db._deserialize_feature_stats(malformed_data)
         
         # Should have valid entry and skip invalid ones

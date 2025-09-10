@@ -4,7 +4,7 @@
 
 ## 概述
 
-OpenEvolve是Google DeepMind的AlphaEvolve系统的开源实现 - 一个使用LLM通过迭代进化优化代码的进化代码智能体。该框架可以进化多种语言（Python、R、Rust等）的代码，用于科学计算、优化和算法发现等任务。
+llmEvolve是Google DeepMind的AlphaEvolve系统的开源实现 - 一个使用LLM通过迭代进化优化代码的进化代码智能体。该框架可以进化多种语言（Python、R、Rust等）的代码，用于科学计算、优化和算法发现等任务。
 
 ## 基本命令
 
@@ -23,13 +23,13 @@ python -m unittest discover tests
 ### 代码格式化
 ```bash
 # 使用Black格式化
-python -m black openevolve examples tests scripts
+python -m black llm_evolve examples tests scripts
 
 # 或使用Makefile
 make lint
 ```
 
-### 运行OpenEvolve
+### 运行llmEvolve
 ```bash
 # 基本进化运行
 python main.py path/to/problem --iterations 1000
@@ -38,33 +38,27 @@ python main.py path/to/problem --iterations 1000
 python main.py path/to/problem --checkpoint path/to/checkpoint_directory --iterations 50
 ```
 
-### 可视化
-```bash
-# 查看进化树
-python scripts/visualizer.py --path examples/function_minimization/openevolve_output/checkpoints/checkpoint_100/
-```
-
 ## 高层架构
 
 ### 核心组件
 
-1. **控制器（`openevolve/controller.py`）**：使用ProcessPoolExecutor进行并行迭代执行的主要协调器。
+1. **控制器（`controller.py`）**：使用ProcessPoolExecutor进行并行迭代执行的主要协调器。
 
-2. **数据库（`openevolve/database.py`）**：实现具有基于岛屿进化的MAP-Elites算法：
+2. **数据库（`database.py`）**：实现具有基于岛屿进化的MAP-Elites算法：
    - 程序映射到多维特征网格
    - 多个隔离的种群（岛屿）独立进化
    - 岛屿之间的周期性迁移防止收敛
    - 单独跟踪绝对最佳程序
 
-3. **评估器（`openevolve/evaluator.py`）**：级联评估模式：
+3. **评估器（`evaluator.py`）**：级联评估模式：
    - 阶段1：快速验证
    - 阶段2：基本性能测试  
    - 阶段3：全面评估
    - 程序必须在每个阶段通过阈值
 
-4. **LLM集成（`openevolve/llm/`）**：具有多个模型、可配置权重和重试逻辑的异步生成的集成方法。
+4. **LLM集成（`llm/`）**：具有多个模型、可配置权重和重试逻辑的异步生成的集成方法。
 
-5. **迭代（`openevolve/iteration.py`）**：从岛屿采样的工作进程，通过LLM生成突变，评估程序并存储工件。
+5. **迭代（`iteration.py`）**：从岛屿采样的工作进程，通过LLM生成突变，评估程序并存储工件。
 
 ### 关键架构模式
 

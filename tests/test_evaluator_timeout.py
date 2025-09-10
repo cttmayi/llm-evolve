@@ -1,5 +1,5 @@
 """
-Tests for evaluation timeout functionality in openevolve.evaluator
+Tests for evaluation timeout functionality in evaluator
 """
 
 import asyncio

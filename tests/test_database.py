@@ -1,5 +1,5 @@
 """
-Tests for ProgramDatabase in openevolve.database
+Tests for ProgramDatabase in database
 """
 
 import unittest

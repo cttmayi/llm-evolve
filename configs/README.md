@@ -1,6 +1,6 @@
-# OpenEvolve 配置文件
+# llmEvolve 配置文件
 
-此目录包含 OpenEvolve 的配置文件，针对不同用例提供了示例。
+此目录包含 llmEvolve 的配置文件，针对不同用例提供了示例。
 
 ## 配置文件
 
@@ -61,11 +61,11 @@ cp configs/default_config.yaml my_config.yaml
 # 编辑 my_config.yaml 以满足您的特定需求
 ```
 
-然后与 OpenEvolve 一起使用：
+然后与 llmEvolve 一起使用：
 
 ```python
-from openevolve import OpenEvolve
-evolve = OpenEvolve(
+from llm_evolve import llmEvolve
+evolve = llmEvolve(
     initial_program_path="program.py",
     evaluation_file="evaluator.py", 
     config_path="my_config.yaml"

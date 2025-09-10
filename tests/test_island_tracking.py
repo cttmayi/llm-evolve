@@ -1,5 +1,5 @@
 """
-Tests for island best program tracking functionality in openevolve.database
+Tests for island best program tracking functionality in database
 """
 
 import unittest

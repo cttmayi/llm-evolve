@@ -1,5 +1,5 @@
 """
-Async utilities for OpenEvolve
+Async utilities
 """
 
 import asyncio

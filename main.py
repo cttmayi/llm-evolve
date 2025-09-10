@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Entry point script for OpenEvolve
+Entry point script for llmEvolve
 """
 import sys
 from llm_evolve.cli import main

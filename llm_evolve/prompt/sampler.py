@@ -1,5 +1,5 @@
 """
-Prompt sampling for OpenEvolve
+Prompt sampling
 """
 
 import logging

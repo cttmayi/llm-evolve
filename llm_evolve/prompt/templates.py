@@ -1,5 +1,5 @@
 """
-Prompt templates for OpenEvolve
+Prompt templates
 """
 
 import os

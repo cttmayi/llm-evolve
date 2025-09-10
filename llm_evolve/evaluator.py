@@ -1,5 +1,5 @@
 """
-Evaluation system for OpenEvolve
+Evaluation system
 """
 
 import asyncio

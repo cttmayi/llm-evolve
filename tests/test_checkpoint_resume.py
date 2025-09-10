@@ -81,7 +81,7 @@ def evaluate(program_path):
         """Test that initial program is added when starting fresh"""
 
         async def run_test():
-            with patch("openevolve.controller.Evaluator") as mock_evaluator_class:
+            with patch("llm_evolve.controller.Evaluator") as mock_evaluator_class:
                 mock_evaluator = MockEvaluator()
                 mock_evaluator_class.return_value = mock_evaluator
 
@@ -98,7 +98,7 @@ def evaluate(program_path):
 
                 # Mock the parallel controller to avoid API calls
                 with patch(
-                    "openevolve.controller.ProcessParallelController"
+                    "llm_evolve.controller.ProcessParallelController"
                 ) as mock_controller_class:
                     mock_controller = Mock()
                     mock_controller.run_evolution = AsyncMock(return_value=None)
@@ -130,7 +130,7 @@ def evaluate(program_path):
         """Test that programs with identical content are not added multiple times"""
 
         async def run_test():
-            with patch("openevolve.controller.Evaluator") as mock_evaluator_class:
+            with patch("llm_evolve.controller.Evaluator") as mock_evaluator_class:
                 mock_evaluator = MockEvaluator()
                 mock_evaluator_class.return_value = mock_evaluator
 
@@ -154,7 +154,7 @@ def evaluate(program_path):
 
                 # Mock the parallel controller to avoid API calls
                 with patch(
-                    "openevolve.controller.ProcessParallelController"
+                    "llm_evolve.controller.ProcessParallelController"
                 ) as mock_controller_class:
                     mock_controller = Mock()
                     mock_controller.run_evolution = AsyncMock(return_value=None)
@@ -180,7 +180,7 @@ def evaluate(program_path):
         """Test that initial program is not re-added when resuming from checkpoint"""
 
         async def run_test():
-            with patch("openevolve.controller.Evaluator") as mock_evaluator_class:
+            with patch("llm_evolve.controller.Evaluator") as mock_evaluator_class:
                 mock_evaluator = MockEvaluator()
                 mock_evaluator_class.return_value = mock_evaluator
 
@@ -209,7 +209,7 @@ def evaluate(program_path):
 
                 # Mock the parallel controller to avoid API calls
                 with patch(
-                    "openevolve.controller.ProcessParallelController"
+                    "llm_evolve.controller.ProcessParallelController"
                 ) as mock_controller_class:
                     mock_controller = Mock()
                     mock_controller.run_evolution = AsyncMock(return_value=None)
@@ -238,7 +238,7 @@ def evaluate(program_path):
         """Test that initial program is not added when database already has programs at iteration 0"""
 
         async def run_test():
-            with patch("openevolve.controller.Evaluator") as mock_evaluator_class:
+            with patch("llm_evolve.controller.Evaluator") as mock_evaluator_class:
                 mock_evaluator = MockEvaluator()
                 mock_evaluator_class.return_value = mock_evaluator
 
@@ -267,7 +267,7 @@ def evaluate(program_path):
 
                 # Mock the parallel controller to avoid API calls
                 with patch(
-                    "openevolve.controller.ProcessParallelController"
+                    "llm_evolve.controller.ProcessParallelController"
                 ) as mock_controller_class:
                     mock_controller = Mock()
                     mock_controller.run_evolution = AsyncMock(return_value=None)
@@ -296,7 +296,7 @@ def evaluate(program_path):
         """Test that calling run() multiple times doesn't pollute the database"""
 
         async def run_test():
-            with patch("openevolve.controller.Evaluator") as mock_evaluator_class:
+            with patch("llm_evolve.controller.Evaluator") as mock_evaluator_class:
                 mock_evaluator = MockEvaluator()
                 mock_evaluator_class.return_value = mock_evaluator
 
@@ -308,7 +308,7 @@ def evaluate(program_path):
                 )
 
                 # Mock the parallel controller to avoid API calls
-                with patch("openevolve.controller.ProcessParallelController") as mock_parallel_class:
+                with patch("llm_evolve.controller.ProcessParallelController") as mock_parallel_class:
                     mock_parallel = MagicMock()
                     mock_parallel.run_evolution = AsyncMock(return_value=None)
                     mock_parallel.start = MagicMock()

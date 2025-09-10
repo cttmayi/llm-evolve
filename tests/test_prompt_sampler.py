@@ -1,5 +1,5 @@
 """
-Tests for PromptSampler in openevolve.prompt.sampler
+Tests for PromptSampler in prompt.sampler
 """
 
 import unittest

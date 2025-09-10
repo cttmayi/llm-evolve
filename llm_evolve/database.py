@@ -1,5 +1,5 @@
 """
-Program database for OpenEvolve
+Program database
 """
 
 import base64
@@ -1424,7 +1424,7 @@ class ProgramDatabase:
                 # - Program 5645fbd2 had 31 descendant copies
                 # - IDs grow exponentially: program_migrant_2_migrant_3_migrant_4_migrant_0...
                 #
-                # This is particularly problematic for OpenEvolve's MAP-Elites + Island hybrid architecture:
+                # This is particularly problematic for Evolve's MAP-Elites + Island hybrid architecture:
                 # 1. All copies have identical code → same complexity/diversity/performance scores
                 # 2. They all map to the SAME MAP-Elites cell → only 1 survives, rest discarded
                 # 3. Wastes computation evaluating hundreds of identical programs

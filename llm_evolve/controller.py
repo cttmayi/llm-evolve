@@ -1,5 +1,5 @@
 """
-Main controller for OpenEvolve
+Main controller
 """
 
 import asyncio
@@ -58,7 +58,7 @@ def _format_improvement(improvement: Dict[str, Any]) -> str:
 
 class llmEvolve:
     """
-    Main controller for OpenEvolve
+    Main controller
 
     Orchestrates the evolution process, coordinating between the prompt sampler,
     LLM ensemble, evaluator, and program database.
@@ -84,7 +84,7 @@ class llmEvolve:
 
         # Set up output directory
         self.output_dir = output_dir or os.path.join(
-            os.path.dirname(initial_program_path), "openevolve_output"
+            os.path.dirname(initial_program_path), "evolve_output"
         )
         os.makedirs(self.output_dir, exist_ok=True)
 
@@ -157,7 +157,7 @@ class llmEvolve:
         )
         self.evaluation_file = evaluation_file
 
-        logger.info(f"Initialized OpenEvolve with {initial_program_path}")
+        logger.info(f"Initialized Evolve with {initial_program_path}")
 
         # Initialize improved parallel processing components
         self.parallel_controller = None
@@ -178,7 +178,7 @@ class llmEvolve:
         root_logger.setLevel(level=logging.DEBUG)
 
         # Add file handler
-        log_file = os.path.join(log_dir, f"openevolve_{time.strftime('%Y%m%d_%H%M%S')}.log")
+        log_file = os.path.join(log_dir, f"evolve_{time.strftime('%Y%m%d_%H%M%S')}.log")
         file_handler = logging.FileHandler(log_file)
         file_handler.setFormatter(logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s"))
         file_handler.setLevel(level=logging.DEBUG)

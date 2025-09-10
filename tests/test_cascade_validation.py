@@ -1,5 +1,5 @@
 """
-Tests for cascade evaluation validation functionality in openevolve.evaluator
+Tests for cascade evaluation validation functionality in evaluator
 """
 
 import unittest
@@ -58,7 +58,7 @@ def evaluate(program_path):
         self.config.evaluator.evaluation_file = evaluator_path
 
         # Should not raise warnings for valid cascade evaluator
-        with patch("openevolve.evaluator.logger") as mock_logger:
+        with patch("llm_evolve.evaluator.logger") as mock_logger:
             evaluator = Evaluator(self.config.evaluator, evaluator_path)
 
             # Should not have called warning
@@ -78,7 +78,7 @@ def evaluate(program_path):
         self.config.evaluator.evaluation_file = evaluator_path
 
         # Should warn about missing cascade functions
-        with patch("openevolve.evaluator.logger") as mock_logger:
+        with patch("llm_evolve.evaluator.logger") as mock_logger:
             evaluator = Evaluator(self.config.evaluator, evaluator_path)
 
             # Should have warned about missing stage functions
@@ -104,7 +104,7 @@ def evaluate(program_path):
         self.config.evaluator.evaluation_file = evaluator_path
 
         # Should warn about missing additional stages
-        with patch("openevolve.evaluator.logger") as mock_logger:
+        with patch("llm_evolve.evaluator.logger") as mock_logger:
             evaluator = Evaluator(self.config.evaluator, evaluator_path)
 
             # Should warn about missing stage2/stage3
@@ -128,7 +128,7 @@ def evaluate(program_path):
         self.config.evaluator.evaluation_file = evaluator_path
 
         # Should not perform validation or warn
-        with patch("openevolve.evaluator.logger") as mock_logger:
+        with patch("llm_evolve.evaluator.logger") as mock_logger:
             evaluator = Evaluator(self.config.evaluator, evaluator_path)
 
             # Should not warn when cascade evaluation is disabled
@@ -138,7 +138,7 @@ def evaluate(program_path):
         """Test that _direct_evaluate supports EvaluationResult returns"""
         # Create evaluator that returns EvaluationResult
         evaluator_content = """
-from openevolve.evaluation_result import EvaluationResult
+from llm_evolve.evaluation_result import EvaluationResult
 
 def evaluate(program_path):
     return EvaluationResult(
@@ -239,7 +239,7 @@ def evaluate(program_path):
         self.config.evaluator.evaluation_file = evaluator_path
 
         # Should not warn since module-level functions exist
-        with patch("openevolve.evaluator.logger") as mock_logger:
+        with patch("llm_evolve.evaluator.logger") as mock_logger:
             evaluator = Evaluator(self.config.evaluator, evaluator_path)
 
             mock_logger.warning.assert_not_called()

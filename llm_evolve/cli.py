@@ -1,5 +1,5 @@
 """
-Command-line interface for OpenEvolve
+Command-line interface
 """
 
 import argparse
@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 def _parse_args() -> argparse.Namespace:
     """Parse command-line arguments"""
-    parser = argparse.ArgumentParser(description="OpenEvolve - Evolutionary coding agent")
+    parser = argparse.ArgumentParser(description="Evolve - Evolutionary coding agent")
 
     parser.add_argument("problem", help="Path to the initial program directory", default=None)
 
@@ -35,7 +35,7 @@ def _parse_args() -> argparse.Namespace:
     )
 
     parser.add_argument(
-        "--checkpoint", "-p", help="Path to checkpoint directory to resume from (e.g., openevolve_output/checkpoints/checkpoint_50)",
+        "--checkpoint", "-p", help="Path to checkpoint directory to resume from (e.g., evolve_output/checkpoints/checkpoint_50)",
         default=None,
     )
 
@@ -121,14 +121,14 @@ async def main_async() -> int:
             print(f"Error: Checkpoint directory '{args_checkpoint}' not found")
             return 1
 
-    # Initialize OpenEvolve
+    # Initialize Evolve
     try:
-        print("************* OpenEvolve Starting ************")
+        print("************* Evolve Starting ************")
         print(f"Loading configuration from: {args_config}")
         print(f"Initial program: {args_initial_program}")
         print(f"Evaluation file: {args_evaluation_file}")
 
-        openevolve = llmEvolve(
+        evolve = llmEvolve(
             initial_program_path=args_initial_program,
             evaluation_file=args_evaluation_file,
             config=config,
@@ -138,18 +138,18 @@ async def main_async() -> int:
         # Load from checkpoint if specified
         if args_checkpoint:
             print(f"Loading checkpoint from {args_checkpoint}")
-            openevolve.database.load(args_checkpoint)
-            print(f"Checkpoint loaded successfully (iteration {openevolve.database.last_iteration})")    
+            evolve.database.load(args_checkpoint)
+            print(f"Checkpoint loaded successfully (iteration {evolve.database.last_iteration})")    
 
         # Run evolution
-        best_program = await openevolve.run(
+        best_program = await evolve.run(
             # iterations=args_iterations,
             target_score=args_target_score,
             checkpoint_path=args_checkpoint,
         )
 
         # Get the checkpoint path
-        checkpoint_dir = os.path.join(openevolve.output_dir, "checkpoints")
+        checkpoint_dir = os.path.join(evolve.output_dir, "checkpoints")
         latest_checkpoint = None
         if os.path.exists(checkpoint_dir):
             checkpoints = [

@@ -1,5 +1,5 @@
 """
-Tests for LLMEnsemble in openevolve.llm.ensemble
+Tests for LLMEnsemble in llm.ensemble
 """
 
 import unittest

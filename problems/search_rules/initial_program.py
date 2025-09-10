@@ -1,5 +1,5 @@
 # EVOLVE-BLOCK-START
-"""Function minimization example for OpenEvolve"""
+"""Function minimization example"""
 import numpy as np
 from utils.init import init
 

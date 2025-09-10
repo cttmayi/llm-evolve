@@ -1,5 +1,5 @@
 """
-Evaluation result structures for OpenEvolve
+Evaluation result structures
 """
 
 import json

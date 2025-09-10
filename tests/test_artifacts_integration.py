@@ -34,7 +34,7 @@ class TestArtifactsIntegration(unittest.TestCase):
         self.eval_file.write(
             """
 import traceback
-from openevolve.evaluation_result import EvaluationResult
+from llm_evolve.evaluation_result import EvaluationResult
 
 def evaluate(program_path):
     try:
@@ -197,7 +197,7 @@ def evaluate_stage1(program_path):
                 return EvaluationResult.from_dict(result)
 
         # Mock the actual file operations since we're testing the cascade logic
-        with patch("openevolve.evaluator.run_in_executor") as mock_executor:
+        with patch("llm_evolve.evaluator.run_in_executor") as mock_executor:
             # Mock stage1 to return an error with artifacts
             mock_executor.return_value = EvaluationResult(
                 metrics={"stage1_passed": 0.0}, artifacts={"stderr": "Stage 1 compilation error"}

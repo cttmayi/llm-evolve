@@ -1,4 +1,4 @@
-# OpenEvolve Default Configuration
+# Default Configuration
 # This file contains all available configuration options with sensible defaults
 # You can use this as a template for your own configuration
 
@@ -109,7 +109,7 @@ database:
   # Feature map dimensions for MAP-Elites
   # Default if not specified: ["complexity", "diversity"]
   # 
-  # Built-in features (always available, computed by OpenEvolve):
+  # Built-in features (always available, computed by Evolve):
   #   - "complexity": Code length
   #   - "diversity": Code structure diversity
   #
