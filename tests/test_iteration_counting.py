@@ -162,7 +162,7 @@ def evaluate(program_path):
         # Track checkpoint calls
         checkpoint_calls = []
         original_save = controller._save_checkpoint
-        controller._save_checkpoint = lambda i: checkpoint_calls.append(i) or original_save(i)
+        controller._save_checkpoint = lambda iteration: checkpoint_calls.append(iteration) or original_save(iteration)
 
         # Mock LLM
         with patch("llm_evolve.llm.ensemble.LLMEnsemble.generate_with_context") as mock_llm:
