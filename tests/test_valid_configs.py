@@ -14,9 +14,9 @@ class TestConfigValidity(unittest.TestCase):
     """Tests that all config files in the configs/ and examples/ directories are valid"""
 
     def collect_files(self):
-        """Collect all config/*config*.yaml and examples/**/*config*.yaml files"""
-        config_dir = os.path.join(os.path.dirname(__file__), "../configs")
-        examples_dir = os.path.join(os.path.dirname(__file__), "../examples")
+        """Collect all configs/*config*.yaml and projects/**/*config*.yaml files"""
+        config_dir = os.path.join(os.path.dirname(__file__), "configs")
+        examples_dir = os.path.join(os.path.dirname(__file__), "../projects")
         config_files = []
         for root, _, files in itertools.chain(os.walk(config_dir), os.walk(examples_dir)):
             for file in files:

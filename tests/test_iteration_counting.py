@@ -144,7 +144,7 @@ def evaluate(program_path):
                 f"Failed for start={start}, max={max_iter}, interval={interval}",
             )
 
-    async def test_controller_iteration_behavior(self):
+    async def controller_iteration_behavior(self):
         """Test actual controller behavior with iteration counting"""
         config = Config()
         config.max_iterations = 20
@@ -201,7 +201,7 @@ if __name__ == "__main__":
         test = TestIterationCounting()
         test.setUp()
         try:
-            await test.test_controller_iteration_behavior()
+            await test.controller_iteration_behavior()
             print("✓ test_controller_iteration_behavior passed")
         except Exception as e:
             print(f"✗ test_controller_iteration_behavior failed: {e}")
