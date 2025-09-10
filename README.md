@@ -2,20 +2,16 @@
 
 <div align="center">
 
-<img src="pictures/openevolve-logo.png" alt="OpenEvolve Logo" width="400">
-
 **🧬 最先进的开源进化代码智能体**
 
 *将您的LLM转化为自主代码优化器，发现突破性算法*
 
 <p align="center">
-  <a href="https://github.com/codelion/openevolve/stargazers"><img src="https://img.shields.io/github/stars/codelion/openevolve?style=social" alt="GitHub stars"></a>
-  <a href="https://pypi.org/project/openevolve/"><img src="https://img.shields.io/pypi/v/openevolve" alt="PyPI version"></a>
-  <a href="https://pypi.org/project/openevolve/"><img src="https://img.shields.io/pypi/dm/openevolve" alt="PyPI downloads"></a>
-  <a href="https://github.com/codelion/openevolve/blob/main/LICENSE"><img src="https://img.shields.io/github/license/codelion/openevolve" alt="License"></a>
+  <a href="https://github.com/cttmayi/llm-evolve/stargazers"><img src="https://img.shields.io/github/stars/cttmayi/llm-evolve?style=social" alt="GitHub stars"></a>
+  <a href="https://github.com/cttmayi/llm-evolve/blob/main/LICENSE"><img src="https://img.shields.io/github/license/cttmayi/llm-evolve" alt="License"></a>
 </p>
 
-[🚀 **快速开始**](#-快速开始) • [📖 **示例**](#-示例展示) • [💬 **讨论**](https://github.com/codelion/openevolve/discussions)
+[🚀 **快速开始**](#-快速开始) • [📖 **示例**](#-示例展示) 
 
 *从随机搜索到最先进水平：实时观看您的代码进化*
 
@@ -23,14 +19,14 @@
 
 ---
 
-## ✨ 为什么选择OpenEvolve？
+## ✨ 为什么选择llmEvolve？
 
 <table>
 <tr>
 <td width="33%">
 
 ### 🎯 **自主发现**
-LLM不仅仅是优化——而是**发现**全新的算法。无需人工指导。
+LLM 不仅仅是优化——而是**发现**全新的算法。无需人工指导。
 
 </td>
 <td width="33%">
@@ -72,90 +68,17 @@ LLM不仅仅是优化——而是**发现**全新的算法。无需人工指导�
 
 </div>
 
-## 🚀 快速开始
-
-**30秒内从零开始进化代码：**
-
-```bash
-# 安装OpenEvolve
-pip install openevolve
-
-# 设置LLM API密钥（支持任何OpenAI兼容的提供商）
-export OPENAI_API_KEY="your-api-key"
-
-# 运行您的第一次进化！
-python -c "
-from openevolve import run_evolution
-result = run_evolution(
-    'examples/function_minimization/initial_program.py',
-    'examples/function_minimization/evaluator.py'
-)
-print(f'最佳分数: {result.best_score:.4f}')
-"
-```
-
-**需要更多控制？** 使用完整的CLI：
-
-```bash
-python main.py problems/function_minimization --iterations 1000
-```
-
-## 🎬 实际应用展示
-
-<details>
-<summary><b>🔥 圆填充：从随机到最先进水平</b></summary>
-
-**实时观看OpenEvolve发现最优圆填充：**
-
-| 第1代 | 第190代 | 第460代（最终） |
-|--------------|----------------|----------------------|
-| ![初始](examples/circle_packing/circle_packing_1.png) | ![进展](examples/circle_packing/circle_packing_190.png) | ![最终](examples/circle_packing/circle_packing_460.png) |
-| 随机放置 | 学习结构 | **最先进水平结果** |
-
-**结果**：与已发表的n=26圆填充问题基准相匹配。
-
-</details>
-
-<details>
-<summary><b>⚡ GPU内核进化</b></summary>
-
-**进化前（基线）**：
-```metal
-// 标准注意力实现
-kernel void attention_baseline(/* ... */) {
-    // 通用矩阵乘法
-    float sum = 0.0;
-    for (int i = 0; i < seq_len; i++) {
-        sum += query[tid] * key[i];
-    }
-}
-```
-
-**进化后（2.8倍加速）**：
-```metal
-// OpenEvolve发现的优化
-kernel void attention_evolved(/* ... */) {
-    // 硬件感知分块 + 统一内存优化
-    threadgroup float shared_mem[256];
-    // ... 进化的算法利用Apple Silicon架构
-}
-```
-
 **性能影响**：在Apple M1 Pro上实现2.8倍加速，保持数值精度。
 
-</details>
+## 🧬 llmEvolve如何工作
 
-## 🧬 OpenEvolve如何工作
-
-OpenEvolve实现了复杂的**进化代码流程**，远超简单优化：
-
-![OpenEvolve架构](pictures/openevolve-architecture.png)
+llmEvolve实现了复杂的**进化代码流程**，远超简单优化：
 
 ### 🎯 **核心创新**：MAP-Elites + LLM
 
 - **质量-多样性进化**：跨特征维度维护多样化种群
 - **基于岛屿的架构**：多个种群防止过早收敛
-- **LLM集成**：具有智能回退策略的多个模型
+- **LLM 集成**：具有智能回退策略的多个模型
 - **工件旁路通道**：错误反馈改进后续世代
 
 ### 🚀 **高级功能**
@@ -210,19 +133,10 @@ OpenEvolve实现了复杂的**进化代码流程**，远超简单优化：
 ### 安装选项
 
 <details>
-<summary><b>📦 PyPI（推荐）</b></summary>
-
-```bash
-pip install openevolve
-```
-
-</details>
-
-<details>
 <summary><b>🔧 开发安装</b></summary>
 
 ```bash
-git clone https://github.com/codelion/openevolve.git
+git clone https://github.com/cttmayi/llm-evolve.git
 cd openevolve
 pip install -e ".[dev]"
 ```
@@ -233,7 +147,7 @@ pip install -e ".[dev]"
 <summary><b>🐳 Docker</b></summary>
 
 ```bash
-docker pull ghcr.io/codelion/openevolve:latest
+docker pull ghcr.io/cttmayi/llm-evolve:latest
 ```
 
 </details>
@@ -268,57 +182,7 @@ export OPENAI_API_KEY="your-gemini-api-key"
 
 </details>
 
-<details>
-<summary><b>🏠 本地模型（Ollama/vLLM）</b></summary>
 
-```yaml
-# config.yaml
-llm:
-  api_base: "http://localhost:11434/v1"  # Ollama
-  model: "codellama:7b"
-```
-
-</details>
-
-<details>
-<summary><b>⚡ OptiLLM（高级）</b></summary>
-
-如需最大灵活性的速率限制、模型路由和测试时计算：
-
-```bash
-# 安装OptiLLM
-pip install optillm
-
-# 启动OptiLLM代理
-optillm --port 8000
-
-# 将OpenEvolve指向OptiLLM
-export OPENAI_API_KEY="your-actual-key"
-```
-
-```yaml
-llm:
-  api_base: "http://localhost:8000/v1"
-  model: "moa&readurls-o3"  # 测试时计算 + 网络访问
-```
-
-</details>
-
-## 📸 示例展示
-
-<div align="center">
-
-### 🏆 **展示项目**
-
-| 项目 | 领域 | 成就 | 演示 |
-|---------|--------|-------------|------|
-| [🎯 **函数最小化**](examples/function_minimization/) | 优化 | 随机 → 模拟退火 | [查看结果](examples/function_minimization/openevolve_output/) |
-| [⚡ **MLX GPU内核**](examples/mlx_metal_kernel_opt/) | 硬件 | Apple Silicon上2-3倍加速 | [基准测试](examples/mlx_metal_kernel_opt/README.md) |
-| [🔄 **Rust自适应排序**](examples/rust_adaptive_sort/) | 算法 | 数据感知排序 | [代码进化](examples/rust_adaptive_sort/) |
-| [📐 **符号回归**](examples/symbolic_regression/) | 科学 | 自动化方程发现 | [LLM-SRBench](examples/symbolic_regression/) |
-| [🕸️ **网络爬虫 + OptiLLM**](examples/web_scraper_optillm/) | AI集成 | 测试时计算优化 | [智能爬虫](examples/web_scraper_optillm/) |
-
-</div>
 
 ### 🎯 **快速示例**：函数最小化
 
@@ -488,7 +352,7 @@ prompt:
 
 ```python
 # 评估器可以返回执行上下文
-from openevolve.evaluation_result import EvaluationResult
+from llmevolve.evaluation_result import EvaluationResult
 
 return EvaluationResult(
     metrics={"performance": 0.85, "correctness": 1.0},
@@ -511,30 +375,6 @@ return EvaluationResult(
 
 这创建了**反馈循环**，每一代都从以前的错误中学习！
 
-## 📊 可视化
-
-**实时进化跟踪**与交互式Web界面：
-
-```bash
-# 安装可视化依赖
-pip install -r scripts/requirements.txt
-
-# 启动交互式可视化器
-python scripts/visualizer.py
-
-# 或可视化特定检查点
-python scripts/visualizer.py --path examples/function_minimization/openevolve_output/checkpoints/checkpoint_100/
-```
-
-**功能：**
-- 🌳 **进化树**与父子关系
-- 📈 **跨代性能跟踪**
-- 🔍 **代码差异查看器**显示突变
-- 📊 **MAP-Elites网格**可视化
-- 🎯 **多指标分析**与自定义维度
-
-![OpenEvolve可视化器](pictures/openevolve-visualizer.png)
-
 ## 🚀 路线图
 
 ### **🔥 即将推出的功能**
@@ -551,21 +391,9 @@ python scripts/visualizer.py --path examples/function_minimization/openevolve_ou
 - [ ] **神经符号推理**：结合神经和符号方法
 - [ ] **人-AI协作**：带人类反馈的交互式进化
 
-想要贡献？查看我们的[路线图讨论](https://github.com/codelion/openevolve/discussions/categories/roadmap)！
-
 ## 🤔 常见问题
 
 <details>
-<summary><b>💰 运行成本是多少？</b></summary>
-
-**成本取决于您的LLM提供商和迭代次数：**
-
-- **o3**：每次迭代约$0.15-0.60（取决于代码大小）
-- **o3-mini**：每次迭代约$0.03-0.12（更具成本效益）
-- **Gemini-2.5-Pro**：每次迭代约$0.08-0.30
-- **Gemini-2.5-Flash**：每次迭代约$0.01-0.05（最快且最便宜）
-- **本地模型**：设置后几乎免费
-- **OptiLLM**：使用更便宜的模型配合测试时计算获得更好结果
 
 **节省成本技巧：**
 - 从较少的迭代开始（100-200）
@@ -587,19 +415,6 @@ python scripts/visualizer.py --path examples/function_minimization/openevolve_ou
 | **扩展性** | 无法超越人类能力扩展 | 跨岛屿的并行进化 |
 
 当您需要探索大型解决方案空间或同时优化多个目标时，**OpenEvolve表现突出**。
-
-</details>
-
-<details>
-<summary><b>🔧 我可以使用自己的LLM吗？</b></summary>
-
-**可以！** OpenEvolve支持任何OpenAI兼容的API：
-
-- **商业**：OpenAI、Google、Cohere
-- **本地**：Ollama、vLLM、LM Studio、text-generation-webui
-- **高级**：用于路由和测试时计算的OptiLLM
-
-只需在配置中设置`api_base`指向您的端点。
 
 </details>
 
@@ -637,55 +452,9 @@ python scripts/visualizer.py --path examples/function_minimization/openevolve_ou
 
 </details>
 
-### 🌟 **贡献者**
-
-感谢所有使OpenEvolve成为可能的出色贡献者！
-
-<a href="https://github.com/codelion/openevolve/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=codelion/openevolve" />
-</a>
-
-### 🤝 **贡献**
-
-我们欢迎贡献！以下是开始方法：
-
-1. 🍴 **Fork**仓库
-2. 🌿 **创建**您的功能分支：`git checkout -b feat-amazing-feature`
-3. ✨ **添加**您的更改和测试
-4. ✅ **测试**所有内容：`python -m unittest discover tests`
-5. 📝 **提交**清晰的消息
-6. 🚀 **推送**并创建拉取请求
-
-**开源新手？** 查看我们的[贡献指南](CONTRIBUTING.md)并寻找[`good-first-issue`](https://github.com/codelion/openevolve/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)标签！
-
 ### 📚 **学术与研究**
 
 **关于OpenEvolve的文章与博客**：
 - [走向开放进化智能体](https://huggingface.co/blog/driaforall/towards-open-evolutionary-agents) - 编码智能体的进化和开源运动
-- [OpenEvolve：GPU内核发现](https://huggingface.co/blog/codelion/openevolve-gpu-kernel-discovery) - 自动发现优化的GPU内核，实现2-3倍加速
-- [OpenEvolve：使用LLM的进化编码](https://huggingface.co/blog/codelion/openevolve) - 使用大型语言模型进行进化算法发现的介绍
-
-## 📊 引用
-
-如果您在研究中使用OpenEvolve，请引用：
-
-```bibtex
-@software{openevolve,
-  title = {OpenEvolve: 开源进化代码智能体},
-  author = {Asankhaya Sharma},
-  year = {2025},
-  publisher = {GitHub},
-  url = {https://github.com/codelion/openevolve}
-}
-```
----
-
-<div align="center">
-
-### **🚀 准备好进化您的代码了吗？**
-
-**由❤️ OpenEvolve社区制作**
-
-*如果OpenEvolve帮助您发现突破性算法，请给⭐此仓库！*
-
-</div>
+- [OpenEvolve：GPU内核发现](https://huggingface.co/blog/cttmayi/llm-evolve-gpu-kernel-discovery) - 自动发现优化的GPU内核，实现2-3倍加速
+- [OpenEvolve：使用LLM的进化编码](https://huggingface.co/blog/cttmayi/llm-evolve) - 使用大型语言模型进行进化算法发现的介绍
