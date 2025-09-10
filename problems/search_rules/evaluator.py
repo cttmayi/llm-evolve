@@ -5,9 +5,9 @@ import os
 import numpy as np
 import json
 
-from openevolve.helper.executor import run_python_with_timeout, import_python_program, check_result_type
-from openevolve.helper.result import create_exception_result, create_eval_result, print_result
-from openevolve.helper.executor import ExecutorException
+from llm_evolve.helper.executor import run_python_with_timeout, import_python_program, check_result_type
+from llm_evolve.helper.result import create_exception_result, create_eval_result, print_result
+from llm_evolve.helper.executor import ExecutorException
 
 
 def get_values_from_file(header_file, data_file, true_value=True):

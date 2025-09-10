@@ -3,8 +3,8 @@ Tests for PromptSampler in openevolve.prompt.sampler
 """
 
 import unittest
-from openevolve.config import Config
-from openevolve.prompt.sampler import PromptSampler
+from llm_evolve.config import Config
+from llm_evolve.prompt.sampler import PromptSampler
 
 
 class TestPromptSampler(unittest.TestCase):

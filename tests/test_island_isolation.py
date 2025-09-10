@@ -6,9 +6,9 @@ import unittest
 from unittest.mock import Mock, patch, MagicMock
 import asyncio
 
-from openevolve.config import Config, DatabaseConfig, EvaluatorConfig
-from openevolve.database import ProgramDatabase, Program
-from openevolve.process_parallel import ProcessParallelController
+from llm_evolve.config import Config, DatabaseConfig, EvaluatorConfig
+from llm_evolve.database import ProgramDatabase, Program
+from llm_evolve.process_parallel import ProcessParallelController
 
 
 class TestIslandIsolation(unittest.TestCase):

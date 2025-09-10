@@ -7,7 +7,7 @@ import unittest
 import itertools
 from unittest.mock import MagicMock, patch
 
-from openevolve.config import Config, load_config
+from llm_evolve.config import Config, load_config
 
 
 class TestConfigValidity(unittest.TestCase):

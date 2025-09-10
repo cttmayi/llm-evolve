@@ -7,8 +7,8 @@ import tempfile
 import shutil
 import unittest
 
-from openevolve.database import ProgramDatabase, Program
-from openevolve.config import DatabaseConfig
+from llm_evolve.database import ProgramDatabase, Program
+from llm_evolve.config import DatabaseConfig
 
 
 class TestGridStability(unittest.TestCase):

@@ -8,11 +8,11 @@ import tempfile
 import unittest
 from unittest.mock import Mock, patch
 
-from openevolve.config import Config, DatabaseConfig, EvaluatorConfig, PromptConfig
-from openevolve.database import Program, ProgramDatabase
-from openevolve.evaluation_result import EvaluationResult
-from openevolve.evaluator import Evaluator
-from openevolve.prompt.sampler import PromptSampler
+from llm_evolve.config import Config, DatabaseConfig, EvaluatorConfig, PromptConfig
+from llm_evolve.database import Program, ProgramDatabase
+from llm_evolve.evaluation_result import EvaluationResult
+from llm_evolve.evaluator import Evaluator
+from llm_evolve.prompt.sampler import PromptSampler
 
 
 class TestArtifactsIntegration(unittest.TestCase):

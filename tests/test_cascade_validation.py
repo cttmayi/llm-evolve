@@ -6,9 +6,9 @@ import unittest
 import tempfile
 import os
 from unittest.mock import patch, MagicMock
-from openevolve.config import Config
-from openevolve.evaluator import Evaluator
-from openevolve.evaluation_result import EvaluationResult
+from llm_evolve.config import Config
+from llm_evolve.evaluator import Evaluator
+from llm_evolve.evaluation_result import EvaluationResult
 
 
 class TestCascadeValidation(unittest.IsolatedAsyncioTestCase):

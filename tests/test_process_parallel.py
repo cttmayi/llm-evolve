@@ -12,9 +12,9 @@ import time
 # Set dummy API key for testing
 os.environ["OPENAI_API_KEY"] = "test"
 
-from openevolve.config import Config, DatabaseConfig, EvaluatorConfig, LLMConfig, PromptConfig
-from openevolve.database import Program, ProgramDatabase
-from openevolve.process_parallel import ProcessParallelController, SerializableResult
+from llm_evolve.config import Config, DatabaseConfig, EvaluatorConfig, LLMConfig, PromptConfig
+from llm_evolve.database import Program, ProgramDatabase
+from llm_evolve.process_parallel import ProcessParallelController, SerializableResult
 
 
 class TestProcessParallel(unittest.TestCase):

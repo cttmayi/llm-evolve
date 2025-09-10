@@ -11,9 +11,9 @@ from unittest.mock import Mock, patch, MagicMock
 # Set dummy API key for testing
 os.environ["OPENAI_API_KEY"] = "test"
 
-from openevolve.config import Config
-from openevolve.controller import OpenEvolve
-from openevolve.database import Program, ProgramDatabase
+from llm_evolve.config import Config
+from llm_evolve.controller import llmEvolve
+from llm_evolve.database import Program, ProgramDatabase
 
 
 class TestIterationCounting(unittest.TestCase):
@@ -152,7 +152,7 @@ def evaluate(program_path):
         config.database.in_memory = True
         config.evaluator.parallel_evaluations = 1
 
-        controller = OpenEvolve(
+        controller = llmEvolve(
             initial_program_path=self.program_file,
             evaluation_file=self.eval_file,
             config=config,

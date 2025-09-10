@@ -9,8 +9,8 @@ import shutil
 import unittest
 from unittest.mock import patch
 
-from openevolve.database import ProgramDatabase, Program
-from openevolve.config import DatabaseConfig
+from llm_evolve.database import ProgramDatabase, Program
+from llm_evolve.config import DatabaseConfig
 
 
 class TestFeatureStatsPersistence(unittest.TestCase):

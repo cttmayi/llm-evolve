@@ -3,7 +3,7 @@ requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "openevolve"
+name = "llm-evolve"
 dynamic = ["version"]
 description = "Open-source implementation of AlphaEvolve"
 readme = "README.md"
@@ -45,13 +45,13 @@ disallow_untyped_defs = true
 disallow_incomplete_defs = true
 
 [project.scripts]
-openevolve-run = "openevolve.cli:main"
+llm-evolve = "llm_evolve.cli:main"
 
 [tool.setuptools.packages.find]
-include = ["openevolve*"]
+include = ["llm_evolve*"]
 
 [tool.setuptools.package-data]
-openevolve = ["prompts/defaults/*.txt", "prompts/defaults/*.json"]
+llm_evolve = ["prompts/defaults/*.txt", "prompts/defaults/*.json"]
 
 [tool.setuptools.dynamic]
-version = {attr = "openevolve._version.__version__"}
+version = {attr = "llm_evolve._version.__version__"}

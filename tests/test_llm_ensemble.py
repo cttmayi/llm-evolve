@@ -3,8 +3,8 @@ Tests for LLMEnsemble in openevolve.llm.ensemble
 """
 
 import unittest
-from openevolve.llm.ensemble import LLMEnsemble
-from openevolve.config import LLMModelConfig
+from llm_evolve.llm.ensemble import LLMEnsemble
+from llm_evolve.config import LLMModelConfig
 
 
 class TestLLMEnsemble(unittest.TestCase):

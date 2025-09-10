@@ -13,9 +13,9 @@ import time
 # Set dummy API key for testing to prevent OpenAI SDK import failures
 os.environ["OPENAI_API_KEY"] = "test"
 
-from openevolve.config import Config
-from openevolve.controller import OpenEvolve
-from openevolve.database import Program, ProgramDatabase
+from llm_evolve.config import Config
+from llm_evolve.controller import llmEvolve
+from llm_evolve.database import Program, ProgramDatabase
 
 
 class MockEvaluator:
@@ -85,7 +85,7 @@ def evaluate(program_path):
                 mock_evaluator = MockEvaluator()
                 mock_evaluator_class.return_value = mock_evaluator
 
-                controller = OpenEvolve(
+                controller = llmEvolve(
                     initial_program_path=self.test_program_path,
                     evaluation_file=self.evaluator_path,
                     config=self.config,
@@ -134,7 +134,7 @@ def evaluate(program_path):
                 mock_evaluator = MockEvaluator()
                 mock_evaluator_class.return_value = mock_evaluator
 
-                controller = OpenEvolve(
+                controller = llmEvolve(
                     initial_program_path=self.test_program_path,
                     evaluation_file=self.evaluator_path,
                     config=self.config,
@@ -184,7 +184,7 @@ def evaluate(program_path):
                 mock_evaluator = MockEvaluator()
                 mock_evaluator_class.return_value = mock_evaluator
 
-                controller = OpenEvolve(
+                controller = llmEvolve(
                     initial_program_path=self.test_program_path,
                     evaluation_file=self.evaluator_path,
                     config=self.config,
@@ -242,7 +242,7 @@ def evaluate(program_path):
                 mock_evaluator = MockEvaluator()
                 mock_evaluator_class.return_value = mock_evaluator
 
-                controller = OpenEvolve(
+                controller = llmEvolve(
                     initial_program_path=self.test_program_path,
                     evaluation_file=self.evaluator_path,
                     config=self.config,
@@ -300,7 +300,7 @@ def evaluate(program_path):
                 mock_evaluator = MockEvaluator()
                 mock_evaluator_class.return_value = mock_evaluator
 
-                controller = OpenEvolve(
+                controller = llmEvolve(
                     initial_program_path=self.test_program_path,
                     evaluation_file=self.evaluator_path,
                     config=self.config,

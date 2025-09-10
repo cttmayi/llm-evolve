@@ -4,8 +4,8 @@ Tests for ProgramDatabase in openevolve.database
 
 import unittest
 import uuid
-from openevolve.config import Config
-from openevolve.database import Program, ProgramDatabase
+from llm_evolve.config import Config
+from llm_evolve.database import Program, ProgramDatabase
 
 
 class TestProgramDatabase(unittest.TestCase):

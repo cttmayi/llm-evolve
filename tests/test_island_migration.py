@@ -3,8 +3,8 @@ Tests for island migration functionality in openevolve.database
 """
 
 import unittest
-from openevolve.config import Config
-from openevolve.database import Program, ProgramDatabase
+from llm_evolve.config import Config
+from llm_evolve.database import Program, ProgramDatabase
 
 
 class TestIslandMigration(unittest.TestCase):

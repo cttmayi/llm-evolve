@@ -3,8 +3,8 @@ Test for island parent-child consistency - Programs' parents should be in the co
 """
 
 import unittest
-from openevolve.config import Config
-from openevolve.database import ProgramDatabase, Program
+from llm_evolve.config import Config
+from llm_evolve.database import ProgramDatabase, Program
 
 
 class TestIslandParentConsistency(unittest.TestCase):

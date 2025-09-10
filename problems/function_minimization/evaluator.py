@@ -8,7 +8,7 @@ import time
 import concurrent.futures
 import traceback
 import signal
-from openevolve.evaluation_result import EvaluationResult
+from llm_evolve.evaluation_result import EvaluationResult
 
 
 def run_with_timeout(func, args=(), kwargs={}, timeout_seconds=5):

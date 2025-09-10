@@ -6,8 +6,8 @@ import tempfile
 import time
 import unittest
 
-from openevolve.config import DatabaseConfig
-from openevolve.database import Program, ProgramDatabase
+from llm_evolve.config import DatabaseConfig
+from llm_evolve.database import Program, ProgramDatabase
 
 
 class TestArtifactCleanup(unittest.TestCase):

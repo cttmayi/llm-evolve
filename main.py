@@ -3,7 +3,7 @@
 Entry point script for OpenEvolve
 """
 import sys
-from openevolve.cli import main
+from llm_evolve.cli import main
 import logging
 
 

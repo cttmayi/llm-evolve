@@ -9,8 +9,8 @@ import time
 import unittest
 from unittest.mock import patch, MagicMock
 
-from openevolve.config import EvaluatorConfig
-from openevolve.evaluator import Evaluator
+from llm_evolve.config import EvaluatorConfig
+from llm_evolve.evaluator import Evaluator
 
 
 class TestEvaluatorTimeout(unittest.TestCase):

@@ -4,8 +4,8 @@ Comprehensive tests for PromptSampler including inspirations and feature_dimensi
 
 import unittest
 from unittest.mock import MagicMock, patch
-from openevolve.config import Config
-from openevolve.prompt.sampler import PromptSampler
+from llm_evolve.config import Config
+from llm_evolve.prompt.sampler import PromptSampler
 
 
 class TestPromptSamplerComprehensive(unittest.TestCase):
