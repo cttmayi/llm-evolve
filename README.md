@@ -1,4 +1,4 @@
-# llmEvolve
+# LLM Evolve
 
 <div align="center">
 
@@ -10,10 +10,6 @@
   <a href="https://github.com/cttmayi/llm-evolve/stargazers"><img src="https://img.shields.io/github/stars/cttmayi/llm-evolve?style=social" alt="GitHub stars"></a>
   <a href="https://github.com/cttmayi/llm-evolve/blob/main/LICENSE"><img src="https://img.shields.io/github/license/cttmayi/llm-evolve" alt="License"></a>
 </p>
-
-[🚀 **快速开始**](#-快速开始) • [📖 **示例**](#-示例展示) 
-
-*从随机搜索到最先进水平：实时观看您的代码进化*
 
 </div>
 
@@ -46,7 +42,7 @@ LLM 不仅仅是优化——而是**发现**全新的算法。无需人工指导
 
 **OpenEvolve vs 手动优化：**
 
-| 方面 | 手动优化 | OpenEvolve |
+| 方面 | 手动优化 | LLM Evolve |
 |--------|-------------------|------------|
 | **解决时间** | 数天到数周 | 数小时 |
 | **探索广度** | 受人类创造力限制 | 无限的LLM创造力 |
@@ -68,13 +64,11 @@ LLM 不仅仅是优化——而是**发现**全新的算法。无需人工指导
 
 </div>
 
-**性能影响**：在Apple M1 Pro上实现2.8倍加速，保持数值精度。
+## 🧬 LLM Evolve 如何工作
 
-## 🧬 llmEvolve如何工作
+LLM Evolve 实现了复杂的**进化代码流程**，远超简单优化：
 
-llmEvolve实现了复杂的**进化代码流程**，远超简单优化：
-
-### 🎯 **核心创新**：MAP-Elites + LLM
+### 🎯 **核心创新**：MAP-Elites + Island + LLM
 
 - **质量-多样性进化**：跨特征维度维护多样化种群
 - **基于岛屿的架构**：多个种群防止过早收敛
@@ -128,7 +122,6 @@ llmEvolve实现了复杂的**进化代码流程**，远超简单优化：
 ### 要求
 - **Python**：3.9+ 
 - **LLM访问**：任何OpenAI兼容的API
-- **可选**：Docker容器化运行
 
 ### 安装选项
 
@@ -137,56 +130,16 @@ llmEvolve实现了复杂的**进化代码流程**，远超简单优化：
 
 ```bash
 git clone https://github.com/cttmayi/llm-evolve.git
-cd openevolve
+cd llm-evolve
 pip install -e ".[dev]"
 ```
 
 </details>
 
-<details>
-<summary><b>🐳 Docker</b></summary>
-
-```bash
-docker pull ghcr.io/cttmayi/llm-evolve:latest
-```
-
-</details>
-
-### LLM提供商设置
-
-OpenEvolve支持**任何OpenAI兼容的API**：
-
-<details>
-<summary><b>🔥 OpenAI（直接）</b></summary>
-
-```bash
-export OPENAI_API_KEY="sk-..."
-# 默认使用OpenAI端点
-```
-
-</details>
-
-<details>
-<summary><b>🤖 Google Gemini</b></summary>
-
-```yaml
-# config.yaml
-llm:
-  api_base: "https://generativelanguage.googleapis.com/v1beta/openai/"
-  model: "gemini-2.5-pro"
-```
-
-```bash
-export OPENAI_API_KEY="your-gemini-api-key"
-```
-
-</details>
-
-
 
 ### 🎯 **快速示例**：函数最小化
 
-**观看OpenEvolve从随机搜索进化到复杂优化：**
+**观看LLM Evolve从随机搜索进化到复杂优化：**
 
 ```python
 # 初始程序（随机搜索）
@@ -264,7 +217,7 @@ def minimize_function(func, bounds, max_evals=1000):
 
 ## ⚙️ 配置
 
-OpenEvolve为高级用户提供广泛配置：
+LLM Evolve为高级用户提供广泛配置：
 
 ```yaml
 # 高级配置示例
@@ -352,7 +305,7 @@ prompt:
 
 ```python
 # 评估器可以返回执行上下文
-from llmevolve.evaluation_result import EvaluationResult
+from llm_evolve.evaluation_result import EvaluationResult
 
 return EvaluationResult(
     metrics={"performance": 0.85, "correctness": 1.0},
@@ -406,7 +359,7 @@ return EvaluationResult(
 <details>
 <summary><b>🆚 与手动优化相比如何？</b></summary>
 
-| 方面 | 手动 | OpenEvolve |
+| 方面 | 手动 | LLM Evolve |
 |--------|--------|------------|
 | **初始学习** | 需要数周理解领域 | 几分钟即可开始 |
 | **解决方案质量** | 取决于专业知识 | 始终探索新颖方法 |
@@ -414,7 +367,7 @@ return EvaluationResult(
 | **可重现性** | 难以复制确切过程 | 用种子完美重现 |
 | **扩展性** | 无法超越人类能力扩展 | 跨岛屿的并行进化 |
 
-当您需要探索大型解决方案空间或同时优化多个目标时，**OpenEvolve表现突出**。
+当您需要探索大型解决方案空间或同时优化多个目标时，**LLM Evolve表现突出**。
 
 </details>
 
@@ -452,9 +405,3 @@ return EvaluationResult(
 
 </details>
 
-### 📚 **学术与研究**
-
-**关于OpenEvolve的文章与博客**：
-- [走向开放进化智能体](https://huggingface.co/blog/driaforall/towards-open-evolutionary-agents) - 编码智能体的进化和开源运动
-- [OpenEvolve：GPU内核发现](https://huggingface.co/blog/cttmayi/llm-evolve-gpu-kernel-discovery) - 自动发现优化的GPU内核，实现2-3倍加速
-- [OpenEvolve：使用LLM的进化编码](https://huggingface.co/blog/cttmayi/llm-evolve) - 使用大型语言模型进行进化算法发现的介绍
