@@ -231,7 +231,7 @@ class Evaluator:
                     # Combine metrics
                     llm_scores = []
 
-                    for name, value in llm_result.metrics.items():
+                    for name, value in llm_eval_result.metrics.items():
                         weighted_value = value * self.config.llm_feedback_weight
                         eval_result.metrics[f"llm_{name}"] = weighted_value
                         llm_scores.append(value)  # Use unweighted value for average
@@ -295,8 +295,8 @@ class Evaluator:
                 # Capture timeout artifacts if enabled
                 if artifacts_enabled and program_id:
                     self._pending_artifacts[program_id] = {
-                        "timeout": True,
-                        "timeout_duration": self.config.timeout,
+                        "timeout": str(True),
+                        "timeout_duration": str(self.config.timeout),
                         "failure_stage": "evaluation",
                         "error_type": "timeout",
                     }
@@ -316,7 +316,7 @@ class Evaluator:
                         "stderr": str(e),
                         "traceback": traceback.format_exc(),
                         "failure_stage": "evaluation",
-                        "attempt": attempt + 1,
+                        "attempt": str(attempt + 1),
                     }
 
                 # If this is not the last attempt, wait a bit before retrying
@@ -446,7 +446,7 @@ class Evaluator:
                     metrics={"stage1_passed": 0.0, "error": 0.0, "timeout": True},
                     artifacts={
                         "failure_stage": "stage1",
-                        "timeout": True,
+                        "timeout": str(True),
                     },
                 )
             except Exception as e:
@@ -486,7 +486,7 @@ class Evaluator:
                 # Capture stage 2 failure, but keep stage 1 results
                 stage1_eval_result.artifacts.update(
                     {
-                        "stage2_timeout": True,
+                        "stage2_timeout": str(True),
                         "failure_stage": "stage2",
                     }
                 )
@@ -548,7 +548,7 @@ class Evaluator:
                 # Capture stage 3 failure, but keep previous results
                 merged_result.artifacts.update(
                     {
-                        "stage3_timeout": True,
+                        "stage3_timeout": str(True),
                         "failure_stage": "stage3",
                     }
                 )
@@ -590,7 +590,7 @@ class Evaluator:
                 },
             )
 
-    async def _llm_evaluate(self, program_code: str, program_id: str = "") -> Dict[str, float]:
+    async def _llm_evaluate(self, program_code: str, program_id: str = "") -> Union[Dict[str, float], EvaluationResult]:
         """
         Use LLM to evaluate code quality
 

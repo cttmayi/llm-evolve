@@ -7,7 +7,7 @@ import logging
 from concurrent.futures import TimeoutError as FutureTimeoutError
 from typing import Any, Callable, Optional, TypeVar
 from pebble import ProcessPool, ProcessFuture
-from pebble.common import ProcessExpired
+from pebble.common.types import ProcessExpired
 
 logger = logging.getLogger(__name__)
 

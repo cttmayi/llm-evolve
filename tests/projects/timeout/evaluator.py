@@ -24,6 +24,7 @@ def evaluate(program_path):
 
         # Run the program
         program = import_python_program(program_path)
+        assert program is not None
 
         # Check if the program has a search_algorithm function
         if not hasattr(program, "search_algorithm"):

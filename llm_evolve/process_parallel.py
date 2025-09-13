@@ -7,6 +7,7 @@ import logging
 import multiprocessing as mp
 import pickle
 import signal
+import uuid
 import time
 import traceback
 from concurrent.futures import ProcessPoolExecutor, Future
@@ -162,6 +163,7 @@ def _run_iteration_worker(
         best_programs_only = island_programs[: _worker_config.prompt.num_top_programs]
 
         # Build prompt
+        assert _worker_prompt_sampler is not None
         prompt = _worker_prompt_sampler.build_prompt(
             current_program=parent.code,
             parent_program=parent.code,
@@ -180,6 +182,7 @@ def _run_iteration_worker(
 
         # Generate code modification (sync wrapper for async)
         try:
+            assert _worker_llm_ensemble is not None
             llm_response = asyncio.run(
                 _worker_llm_ensemble.generate_with_context(
                     system_message=prompt["system"],
@@ -233,7 +236,7 @@ def _run_iteration_worker(
             )
 
         # Evaluate the child program
-        import uuid
+        assert _worker_evaluator is not None
 
         child_id = str(uuid.uuid4())
         child_metrics = asyncio.run(_worker_evaluator.evaluate_program(child_code, child_id))
@@ -664,6 +667,7 @@ class ProcessParallelController:
             db_snapshot["sampling_island"] = target_island  # Mark which island this is for
 
             # Submit to process pool
+            assert self.executor is not None
             future = self.executor.submit(
                 _run_iteration_worker,
                 iteration,
