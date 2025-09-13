@@ -119,12 +119,19 @@ class ProcessPoolExecutor:
     
     def _ensure_pool(self) -> ProcessPool:
         """Ensure the process pool is created"""
-        if self._pool is None and not self._shutdown:
-            self._pool = ProcessPool(
-                max_workers=self._max_workers,
-                initializer=self._initializer,
-                initargs=self._initargs
-            )
+        if self._shutdown:
+            raise RuntimeError("Cannot submit to shutdown executor")
+
+        if self._pool is None:
+            pool_kwargs = {}
+            if self._max_workers is not None:
+                pool_kwargs['max_workers'] = self._max_workers
+            if self._initializer is not None:
+                pool_kwargs['initializer'] = self._initializer
+            if self._initargs:
+                pool_kwargs['initargs'] = self._initargs
+
+            self._pool = ProcessPool(**pool_kwargs)
             logger.debug(f"Created process pool with {self._max_workers} workers")
         return self._pool
     
@@ -147,8 +154,15 @@ class ProcessPoolExecutor:
         
         try:
             # Schedule the function with pebble
-            pebble_future = pool.schedule(fn, args=args, kwargs=kwargs, timeout=timeout)
+            schedule_kwargs = {
+                'fn': fn,
+                'args': list(args),
+            }
+            if timeout is not None:
+                schedule_kwargs['timeout'] = timeout
             
+            pebble_future = pool.schedule(**schedule_kwargs, **kwargs)
+
             # Wrap in our ProcessFuture
             return ProcessFuture(pebble_future, timeout)
             
