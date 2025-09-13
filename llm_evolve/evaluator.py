@@ -25,8 +25,46 @@ from llm_evolve.llm.ensemble import LLMEnsemble
 from llm_evolve.utils.async_utils import TaskPool, run_in_executor
 from llm_evolve.prompt.sampler import PromptSampler
 from llm_evolve.utils.format_utils import format_metrics_safe
+from llm_evolve.utils.process_utils import run_function_in_process
 
 logger = logging.getLogger(__name__)
+
+
+def run_evaluation_process(evaluation_file, program_path):
+    """Load the evaluation function from the evaluation file"""
+    if not os.path.exists(evaluation_file):
+        raise ValueError(f"Evaluation file {evaluation_file} not found")
+
+    try:
+        # Add the evaluation file's directory to Python path so it can import local modules
+        eval_dir = os.path.dirname(os.path.abspath(evaluation_file))
+        if eval_dir not in sys.path:
+            sys.path.insert(0, eval_dir)
+            logger.debug(f"Added {eval_dir} to Python path for local imports")
+
+        spec = importlib.util.spec_from_file_location("evaluation_module", evaluation_file)
+        if spec is None or spec.loader is None:
+            raise ImportError(f"Failed to load spec from {evaluation_file}")
+
+        module = importlib.util.module_from_spec(spec)
+        sys.modules["evaluation_module"] = module
+        spec.loader.exec_module(module)
+
+        if not hasattr(module, "evaluate"):
+            raise AttributeError(
+                f"Evaluation file {evaluation_file} does not contain an 'evaluate' function"
+            )
+
+        evaluate_function = module.evaluate
+        logger.info(f"Successfully loaded evaluation function from {evaluation_file}")
+
+        # Validate cascade configuration
+        # self._validate_cascade_configuration(module)
+    except Exception as e:
+        logger.error(f"Error loading evaluation function: {str(e)}")
+        raise
+
+    return evaluate_function(program_path)
 
 
 class Evaluator:
@@ -352,7 +390,11 @@ class Evaluator:
             return await loop.run_in_executor(None, self.evaluate_function, program_path)
 
         # Run the evaluation with timeout - let exceptions bubble up for retry handling
-        result = await asyncio.wait_for(run_evaluation(), timeout=self.config.timeout)
+
+        if self.config.timeout > 0:
+            result = run_function_in_process(run_evaluation_process, self.evaluation_file, program_path, timeout=self.config.timeout)
+        else:
+            result = await asyncio.wait_for(run_evaluation(), timeout=self.config.timeout)
 
         # Return result as-is to be processed by _process_evaluation_result
         # This supports both dict and EvaluationResult returns, just like _cascade_evaluate

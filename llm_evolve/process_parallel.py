@@ -10,6 +10,7 @@ import signal
 import time
 import traceback
 from concurrent.futures import ProcessPoolExecutor, Future
+# from llm_evolve.utils.process_utils import ProcessPoolExecutor, Future
 from dataclasses import dataclass, asdict
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
@@ -461,6 +462,7 @@ class ProcessParallelController:
 
             try:
                 result:SerializableResult = future.result()
+                print('Result')
 
                 if result.error:
                     logger.warning(f"Iteration {completed_iteration} error: {result.error}")
