@@ -462,7 +462,6 @@ class ProcessParallelController:
 
             try:
                 result:SerializableResult = future.result()
-                print('Result')
 
                 if result.error:
                     logger.warning(f"Iteration {completed_iteration} error: {result.error}")
