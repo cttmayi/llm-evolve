@@ -277,6 +277,158 @@ def _run_iteration_worker(
         return SerializableResult(error=str(e), iteration=iteration)
 
 
+def _run_iteration_worker_agent(
+    iteration: int, db_snapshot: Dict[str, Any], parent_id: str, inspiration_ids: List[str]
+) -> SerializableResult:
+    """Run a single iteration in a worker process"""
+    try:
+        # Lazy initialization
+        _lazy_init_worker_components()
+
+        # Reconstruct programs from snapshot
+        programs = {pid: Program(**prog_dict) for pid, prog_dict in db_snapshot["programs"].items()}
+
+        parent = programs[parent_id]
+        inspirations = [programs[pid] for pid in inspiration_ids if pid in programs]
+
+        # Get parent artifacts if available
+        parent_artifacts = db_snapshot["artifacts"].get(parent_id)
+
+        # Get island-specific programs for context
+        parent_island = parent.metadata.get("island", db_snapshot["current_island"])
+        island_programs = [
+            programs[pid] for pid in db_snapshot["islands"][parent_island] if pid in programs
+        ]
+
+        # Sort by metrics for top programs
+        island_programs.sort(
+            key=lambda p: p.metrics.get("combined_score", safe_numeric_average(p.metrics)),
+            reverse=True,
+        )
+
+        # Use config values for limits instead of hardcoding
+        # Programs for LLM display (includes both top and diverse for inspiration)
+        programs_for_prompt = island_programs[
+            : _worker_config.prompt.num_top_programs + _worker_config.prompt.num_diverse_programs
+        ]
+        # Best programs only (for previous attempts section, focused on top performers)
+        best_programs_only = island_programs[: _worker_config.prompt.num_top_programs]
+
+        # Build prompt
+        assert _worker_prompt_sampler is not None
+        prompt = _worker_prompt_sampler.build_prompt(
+            current_program=parent.code,
+            parent_program=parent.code,
+            program_metrics=parent.metrics,
+            previous_programs=[p.to_dict() for p in best_programs_only],
+            top_programs=[p.to_dict() for p in programs_for_prompt],
+            inspirations=[p.to_dict() for p in inspirations],
+            language=_worker_config.language,
+            evolution_round=iteration,
+            diff_based_evolution=_worker_config.diff_based_evolution,
+            program_artifacts=parent_artifacts,
+            feature_dimensions=db_snapshot.get("feature_dimensions", []),
+        )
+
+        iteration_start = time.time()
+
+        # Generate code modification (sync wrapper for async)
+        try:
+            assert _worker_llm_ensemble is not None
+            llm_response = asyncio.run(
+                _worker_llm_ensemble.generate_with_context(
+                    system_message=prompt["system"],
+                    messages=[{"role": "user", "content": prompt["user"]}],
+                )
+            )
+        except Exception as e:
+            traceback.print_exc()
+            logger.error(f"LLM generation failed: {e}")
+            return SerializableResult(
+                error=f"LLM generation failed: {str(e)}", 
+                iteration=iteration
+            )
+
+        # Check for None response
+        if llm_response is None:
+            return SerializableResult(
+                error="LLM returned None response", 
+                iteration=iteration
+            )
+
+        # Parse response based on evolution mode
+        if _worker_config.diff_based_evolution:
+            from llm_evolve.utils.code_utils import extract_diffs, apply_diff, format_diff_summary
+
+            diff_blocks = extract_diffs(llm_response)
+            if not diff_blocks:
+                return SerializableResult(
+                    error=f"No valid diffs found in response", iteration=iteration
+                )
+
+            child_code = apply_diff(parent.code, llm_response)
+            changes_summary = format_diff_summary(diff_blocks)
+        else:
+            from llm_evolve.utils.code_utils import parse_full_rewrite
+
+            new_code = parse_full_rewrite(llm_response, _worker_config.language)
+            if not new_code:
+                return SerializableResult(
+                    error=f"No valid code found in response", iteration=iteration
+                )
+
+            child_code = new_code
+            changes_summary = "Full rewrite"
+
+        # Check code length
+        if len(child_code) > _worker_config.max_code_length:
+            return SerializableResult(
+                error=f"Generated code exceeds maximum length ({len(child_code)} > {_worker_config.max_code_length})",
+                iteration=iteration,
+            )
+
+        # Evaluate the child program
+        assert _worker_evaluator is not None
+
+        child_id = str(uuid.uuid4())
+        child_metrics = asyncio.run(_worker_evaluator.evaluate_program(child_code, child_id))
+
+        # Get artifacts
+        artifacts = _worker_evaluator.get_pending_artifacts(child_id)
+
+        # Create child program
+        child_program = Program(
+            id=child_id,
+            code=child_code,
+            language=_worker_config.language,
+            parent_id=parent.id,
+            generation=parent.generation + 1,
+            metrics=child_metrics,
+            iteration_found=iteration,
+            metadata={
+                "changes": changes_summary,
+                "parent_metrics": parent.metrics,
+                "island": parent_island,
+            },
+        )
+
+        iteration_time = time.time() - iteration_start
+
+        return SerializableResult(
+            child_program_dict=child_program.to_dict(),
+            parent_id=parent.id,
+            iteration_time=iteration_time,
+            prompt=prompt,
+            llm_response=llm_response,
+            artifacts=artifacts,
+            iteration=iteration,
+        )
+
+    except Exception as e:
+        logger.exception(f"Error in worker iteration {iteration}")
+        return SerializableResult(error=str(e), iteration=iteration)
+
+
 class ProcessParallelController:
     """Controller for process-based parallel evolution"""
 
