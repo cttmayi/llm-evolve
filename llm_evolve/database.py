@@ -706,6 +706,12 @@ class ProgramDatabase:
         with open(program_path, "w") as f:
             json.dump(program_dict, f, indent=4, sort_keys=True, ensure_ascii=False)
 
+
+        if "code" in program_dict:
+            program_code_path = os.path.join(programs_dir, f"{program.id}.py")
+            with open(program_code_path, "w") as f:
+                f.write(program_dict["code"])
+
     def _calculate_feature_coords(self, program: Program) -> List[int]:
         """
         Calculate feature coordinates for the MAP-Elites grid
