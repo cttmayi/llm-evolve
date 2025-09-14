@@ -155,7 +155,7 @@ class ProcessPoolExecutor:
         try:
             # Schedule the function with pebble
             schedule_kwargs = {
-                'fn': fn,
+                'function': fn,
                 'args': list(args),
             }
             if timeout is not None:
